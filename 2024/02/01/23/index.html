@@ -1,0 +1,294 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4" theme-name="Stellar" theme-version="1.26.4">
+  
+  <meta name="generator" content="Hexo 7.1.1">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>增加一个统计模块 - lazychild's Blog</title>
+
+  
+    <meta name="description" content="canvasJS的使用这是前端的一个画各种表格的插件，十分好用哦！！官网地址在https:&#x2F;&#x2F;canvasjs.com&#x2F; 新建一个js文件123456789101112131415161718&#x2F;&#x2F; 将文章日期和数量存本地var achivesDate &#x3D; document.querySelectorAll(&#x27;.card-archive-list-date&#x27;); var achi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="增加一个统计模块">
+<meta property="og:url" content="https://www.lazychild.fun/2024/02/01/23/index.html">
+<meta property="og:site_name" content="lazychild&#39;s Blog">
+<meta property="og:description" content="canvasJS的使用这是前端的一个画各种表格的插件，十分好用哦！！官网地址在https:&#x2F;&#x2F;canvasjs.com&#x2F; 新建一个js文件123456789101112131415161718&#x2F;&#x2F; 将文章日期和数量存本地var achivesDate &#x3D; document.querySelectorAll(&#x27;.card-archive-list-date&#x27;); var achi">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-01T10:09:18.200Z">
+<meta property="article:modified_time" content="2024-02-01T07:22:49.109Z">
+<meta property="article:author" content="小哲">
+<meta property="article:tag" content="butterfly">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta name="keywords" content="butterfly">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.26.4">
+
+  
+
+  
+
+  
+  
+</head>
+<body>
+
+<div class="l_body content tech" id="start" layout="post" ><aside class="l_left"><div class="sidebar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/tou.gif" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">爱敲代码的小哲</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" class="icon search-icon" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"></nav>
+</div>
+<div class="widgets">
+
+<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#canvasJS%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">canvasJS的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AAjs%E6%96%87%E4%BB%B6"><span class="toc-text">新建一个js文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E9%A1%B5%E9%9D%A2"><span class="toc-text">新建页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%E5%9C%A8%E5%A2%9E%E5%8A%A0%E4%B8%80%E4%B8%AA%E5%AF%BC%E8%88%AA%E6%A0%8F"><span class="toc-text">最后在增加一个导航栏</span></a></li></ol></div></div></widget>
+
+
+
+
+
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2024/02/01/45/"><span class="title">主题推荐-stellar</span></a><a class="item title" href="/2024/02/01/44/"><span class="title">css中变量的使用</span></a><a class="item title" href="/2024/02/01/43/"><span class="title">在vscode中的使用sass插件</span></a><a class="item title" href="/2024/02/01/42/"><span class="title">js扩展API</span></a><a class="item title" href="/2024/02/01/41/"><span class="title">css属性mix-blend-mode介绍</span></a><a class="item title" href="/2024/02/01/40/"><span class="title">uni-app实现app自动检测更新</span></a><a class="item title" href="/2024/02/01/39/"><span class="title">vue(原生js)事件委托与参数同时使用</span></a><a class="item title" href="/2024/02/01/38/"><span class="title">探究css的滤镜效果</span></a><a class="item title" href="/2024/02/01/37/"><span class="title">主题推荐-anzhiyu</span></a><a class="item title" href="/2024/02/01/36/"><span class="title">maupassant的基本配置</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    
+<div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E9%AD%94%E6%94%B9/">魔改</a></div>
+<div class="flex-row" id="post-meta"><span class="text created"><time datetime="2024-02-01T10:09:18.200Z">2024-02-01</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-02-01T07:22:49.109Z">2024-02-01</time></span></div></div>
+</div>
+
+    
+    <div class="bottom">
+      <div class="text-area">
+        <h1 class="text title"><span>增加一个统计模块</span></h1>
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="canvasJS的使用"><a href="#canvasJS的使用" class="headerlink" title="canvasJS的使用"></a>canvasJS的使用</h2><p>这是前端的一个画各种表格的插件，十分好用哦！！官网地址在<a target="_blank" rel="noopener" href="https://canvasjs.com/">https://canvasjs.com/</a></p>
+<h2 id="新建一个js文件"><a href="#新建一个js文件" class="headerlink" title="新建一个js文件"></a>新建一个js文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 将文章日期和数量存本地</span><br><span class="line">var achivesDate = document.querySelectorAll(&#x27;.card-archive-list-date&#x27;); var achivesDateNumber = document.querySelectorAll(&#x27;.card-archive-list-count&#x27;); var achivesDateArr = []; var achivesDateNumberArr = [];</span><br><span class="line">if (achivesDate.length) &#123;</span><br><span class="line">	for (var i = 0; i &lt; achivesDate.length; i++) &#123; achivesDateArr.push(achivesDate[i].innerHTML); achivesDateNumberArr.push(achivesDateNumber[i].innerHTML) &#125;; localStorage.setItem(&#x27;achivesDateArr&#x27;, achivesDateArr); localStorage.setItem(&#x27;achivesDateNumberArr&#x27;, achivesDateNumberArr)</span><br><span class="line">&#125;</span><br><span class="line">// 将分类信息存入本地</span><br><span class="line">var cardCategoryListCountArr = []</span><br><span class="line">var cardCategoryListNameArr = []</span><br><span class="line">var cardCategoryListCount = document.querySelectorAll(&#x27;.card-category-list-count&#x27;)</span><br><span class="line">var cardCategoryListName = document.querySelectorAll(&#x27;.card-category-list-name&#x27;)</span><br><span class="line">if (cardCategoryListCount.length) &#123;</span><br><span class="line">	for (var i = 0; i &lt; cardCategoryListCount.length; i++) &#123;</span><br><span class="line">		cardCategoryListCountArr.push(cardCategoryListCount[i].innerHTML)</span><br><span class="line">		cardCategoryListNameArr.push(cardCategoryListName[i].innerHTML)</span><br><span class="line">	&#125;</span><br><span class="line">	localStorage.setItem(&#x27;card-category-list-count&#x27;, cardCategoryListCountArr)</span><br><span class="line">	localStorage.setItem(&#x27;card-category-list-name&#x27;, cardCategoryListNameArr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>记得引入至主题配置文件_config.yml中</strong></p>
+<h2 id="新建页面"><a href="#新建页面" class="headerlink" title="新建页面"></a>新建页面</h2><p>在根目录source目录下新建一个目录statistics，在其下面新建index.ejs文件<br>增加如下内容即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 统计</span><br><span class="line">---</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">	&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">	&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">	&lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">	&lt;script type=&quot;text/javascript&quot; src=&quot;https://www.lazychild.fun/js/canvasJS.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=&quot;chartContainer&quot; style=&quot;height: 300px; width: 95%;&quot;&gt;&lt;/div&gt;</span><br><span class="line">	&lt;div id=&quot;chartContainer1&quot; style=&quot;height: 300px; width: 95%;&quot;&gt;&lt;/div&gt;</span><br><span class="line">	&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">		// 从本地获取文章数量和日期</span><br><span class="line">		var achivesDateArr = localStorage.getItem(&#x27;achivesDateArr&#x27;).split(&#x27;,&#x27;).reverse()</span><br><span class="line">		var achivesDateNumberArr = localStorage.getItem(&#x27;achivesDateNumberArr&#x27;).split(&#x27;,&#x27;).reverse()</span><br><span class="line">		var cardCategoryListName = localStorage.getItem(&#x27;card-category-list-name&#x27;).split(&#x27;,&#x27;)</span><br><span class="line">		var cardCategoryListCount = localStorage.getItem(&#x27;card-category-list-count&#x27;).split(&#x27;,&#x27;)</span><br><span class="line">		// 文章</span><br><span class="line">		var chart = new CanvasJS.Chart(&quot;chartContainer&quot;,</span><br><span class="line">			&#123;</span><br><span class="line">				title: &#123;</span><br><span class="line">					text: &quot;归档&quot;</span><br><span class="line">				&#125;,</span><br><span class="line">				data: [</span><br><span class="line"></span><br><span class="line">					&#123;</span><br><span class="line">						dataPoints: []</span><br><span class="line">					&#125;</span><br><span class="line">				]</span><br><span class="line">			&#125;);</span><br><span class="line">		let initX = 1</span><br><span class="line">		for (var i = 0; i &lt; achivesDateArr.length; i++) &#123;</span><br><span class="line">			chart.options.data[0].dataPoints.push(&#123;</span><br><span class="line">				x: initX,</span><br><span class="line">				y: parseInt(achivesDateNumberArr[i]),</span><br><span class="line">				label: achivesDateArr[i]</span><br><span class="line">			&#125;)</span><br><span class="line">			initX++</span><br><span class="line">		&#125;</span><br><span class="line">		chart.render();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		// 分类</span><br><span class="line">		var chart1 = new CanvasJS.Chart(&quot;chartContainer1&quot;,</span><br><span class="line">			&#123;</span><br><span class="line">				legend: &#123;</span><br><span class="line">					maxWidth: 350,</span><br><span class="line">					itemWidth: 120</span><br><span class="line">				&#125;,</span><br><span class="line">				title: &#123;</span><br><span class="line">					text: &quot;分类&quot;</span><br><span class="line">				&#125;,</span><br><span class="line">				data: [</span><br><span class="line"></span><br><span class="line">					&#123;</span><br><span class="line">						type: &quot;pie&quot;,</span><br><span class="line">						showInLegend: true,</span><br><span class="line">						legendText: &quot;&#123;indexLabel&#125;&quot;,</span><br><span class="line">						dataPoints: []</span><br><span class="line">					&#125;</span><br><span class="line">				]</span><br><span class="line">			&#125;);</span><br><span class="line">		for (var i = 0; i &lt; cardCategoryListName.length; i++) &#123;</span><br><span class="line">			chart1.options.data[0].dataPoints.push(&#123;</span><br><span class="line">				y: parseInt(cardCategoryListCount[i]),</span><br><span class="line">				indexLabel: cardCategoryListName[i]</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">		chart1.render();</span><br><span class="line">	&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="最后在增加一个导航栏"><a href="#最后在增加一个导航栏" class="headerlink" title="最后在增加一个导航栏"></a>最后在增加一个导航栏</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">   统计: /statistics/ || icon-tongjitu</span><br></pre></td></tr></table></figure>
+
+
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2024/02/01/24/">留言板模块与文章评论开启</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2024/02/01/22/">vue项目打包部署至云仓库</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">小哲</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4">Stellar 1.26.4</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg t="1705412886951" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8331" width="200" height="200"><path d="M638.72 970.666667h-256c-118.186667 0-198.272-25.002667-251.946667-78.72S52.053333 758.186667 52.053333 640V384c0-118.186667 25.002667-198.272 78.72-251.946667S264.533333 53.333333 382.72 53.333333h256c118.186667 0 198.272 25.002667 251.946667 78.72S969.386667 265.813333 969.386667 384v256c0 118.186667-25.002667 198.272-78.72 251.946667S756.906667 970.666667 638.72 970.666667z m-256-853.333334c-100.096 0-165.802667 19.2-206.72 59.946667S116.053333 283.904 116.053333 384v256c0 100.096 19.072 165.802667 59.946667 206.72S282.624 906.666667 382.72 906.666667h256c100.096 0 165.802667-19.072 206.72-59.946667S905.386667 740.096 905.386667 640V384c0-100.096-19.072-165.802667-59.946667-206.72S738.816 117.333333 638.72 117.333333z" p-id="8332"></path><path d="M638.72 970.666667a32 32 0 0 1-32-32V85.333333a32 32 0 0 1 32-32 32 32 0 0 1 32 32v853.333334a32 32 0 0 1-32 32zM340.053333 653.226667a31.914667 31.914667 0 0 1-22.613333-9.386667 32 32 0 0 1 0-45.269333L404.053333 512 317.44 425.386667a32 32 0 0 1 0-45.226667 32 32 0 0 1 45.226667 0l109.226666 109.226667a32 32 0 0 1 0 45.269333L362.666667 643.84a31.914667 31.914667 0 0 1-22.613334 9.386667z" p-id="8333"></path></svg>
+  </button>
+</div>
+<div class="main-mask" onclick="sidebar.toggle()"></div></div></div><div class="scripts">
+<script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.26.4';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js","memos":"/js/plugins/memos.js","marked":"/js/plugins/marked.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js","transition":"fade"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@10.3/swiper-bundle.min.css","js":"https://unpkg.com/swiper@10.3/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.bootcdn.net/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js","distance":"16px","duration":800,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","flying_pages":"https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js","css":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css","selector":null});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied","toast":"复制成功"});
+  }
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.26.4" async></script>
+
+<!-- optional -->
+
+
+
+
+
+
+<!-- inject -->
+
+</div></body></html>

@@ -1,0 +1,330 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4" theme-name="Stellar" theme-version="1.26.4">
+  
+  <meta name="generator" content="Hexo 7.1.1">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>登录鉴权——Cookie与Session(适合后台嵌套模板) - lazychild's Blog</title>
+
+  
+    <meta name="description" content="本篇文章适合有node基础的同学们哦！我用到的技术 express（基于node的后端） json-server  创建项目1express --view&#x3D;ejs nodeApp  下载依赖1npm i  测试能否成功访问开启本地服务器： 1node .&#x2F;bin&#x2F;www 访问http:&#x2F;&#x2F;localhost:3000 创建一个登录界面在views目录下（ejs）代码如下 1234567891011">
+<meta property="og:type" content="article">
+<meta property="og:title" content="登录鉴权——Cookie与Session(适合后台嵌套模板)">
+<meta property="og:url" content="https://www.lazychild.fun/2024/02/01/18/index.html">
+<meta property="og:site_name" content="lazychild&#39;s Blog">
+<meta property="og:description" content="本篇文章适合有node基础的同学们哦！我用到的技术 express（基于node的后端） json-server  创建项目1express --view&#x3D;ejs nodeApp  下载依赖1npm i  测试能否成功访问开启本地服务器： 1node .&#x2F;bin&#x2F;www 访问http:&#x2F;&#x2F;localhost:3000 创建一个登录界面在views目录下（ejs）代码如下 1234567891011">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-01T10:09:18.191Z">
+<meta property="article:modified_time" content="2024-02-01T07:22:00.586Z">
+<meta property="article:author" content="小哲">
+<meta property="article:tag" content="node">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta name="keywords" content="node">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.26.4">
+
+  
+
+  
+
+  
+  
+</head>
+<body>
+
+<div class="l_body content tech" id="start" layout="post" ><aside class="l_left"><div class="sidebar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/tou.gif" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">爱敲代码的小哲</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" class="icon search-icon" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"></nav>
+</div>
+<div class="widgets">
+
+<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E7%AF%87%E6%96%87%E7%AB%A0%E9%80%82%E5%90%88%E6%9C%89node%E5%9F%BA%E7%A1%80%E7%9A%84%E5%90%8C%E5%AD%A6%E4%BB%AC%E5%93%A6%EF%BC%81"><span class="toc-text">本篇文章适合有node基础的同学们哦！</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E7%94%A8%E5%88%B0%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="toc-text">我用到的技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E4%BE%9D%E8%B5%96"><span class="toc-text">下载依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E8%83%BD%E5%90%A6%E6%88%90%E5%8A%9F%E8%AE%BF%E9%97%AE"><span class="toc-text">测试能否成功访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%99%BB%E5%BD%95%E7%95%8C%E9%9D%A2%E5%9C%A8views%E7%9B%AE%E5%BD%95%E4%B8%8B%EF%BC%88ejs%EF%BC%89"><span class="toc-text">创建一个登录界面在views目录下（ejs）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%99%BB%E5%BD%95%E6%88%90%E5%8A%9F%E5%90%8E%E7%9A%84%E8%B7%B3%E8%BD%AC%E7%95%8C%E9%9D%A2%EF%BC%88ejs%EF%BC%89"><span class="toc-text">创建一个登录成功后的跳转界面（ejs）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E8%B7%AF%E7%94%B1%E4%BB%A3%E7%A0%81"><span class="toc-text">后台路由代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDjson-server"><span class="toc-text">下载json-server</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E5%90%AFjson-server%E6%9C%8D%E5%8A%A1"><span class="toc-text">开启json-server服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDaxios-%E4%B8%80%E7%A7%8D%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F"><span class="toc-text">下载axios(一种请求方式)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%B0%E8%BF%99%E9%87%8C%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E4%B8%80%E4%B8%AA%E7%99%BB%E5%BD%95%E9%89%B4%E6%9D%83%E5%B0%B1%E5%B7%B2%E7%BB%8F%E5%86%99%E5%AE%8C%E4%BA%86"><span class="toc-text">到这里最简单的一个登录鉴权就已经写完了</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85express-session%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-text">安装express-session中间件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEapp-js%E6%96%87%E4%BB%B6"><span class="toc-text">配置app.js文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5express-session"><span class="toc-text">导入express-session</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEsession%EF%BC%88%E8%AE%B0%E5%BE%97%E6%94%BE%E5%9C%A8express%E7%9A%84%E8%B7%AF%E7%94%B1%E4%B9%8B%E5%89%8D%EF%BC%89"><span class="toc-text">配置session（记得放在express的路由之前）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9post%E8%AF%B7%E6%B1%82%E7%9A%84%E8%B7%AF%E7%94%B1-%E8%AE%BE%E7%BD%AEreq-session-username%E7%9A%84%E5%80%BC"><span class="toc-text">修改post请求的路由(设置req.session.username的值)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AF%B9%E6%8E%A5%E5%8F%A3%E8%BF%9B%E8%A1%8C%E6%8B%A6%E6%88%AA"><span class="toc-text">创建中间件对接口进行拦截</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E4%B8%AAapp-js%E4%BB%A3%E7%A0%81"><span class="toc-text">整个app.js代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%B0%E8%BF%99%E4%B8%80%E6%AD%A5%EF%BC%8C%E4%BC%99%E4%BC%B4%E4%BB%AC%E4%BD%A0%E4%BB%AC%E5%B7%B2%E7%BB%8F%E5%AE%9E%E7%8E%B0%E4%BA%86%E4%B8%80%E4%B8%AA%E7%99%BB%E5%BD%95%E9%89%B4%E6%9D%83%E5%8A%9F%E8%83%BD%E4%BA%86%EF%BC%8C%E6%98%AF%E4%B8%8D%E6%98%AF%E5%BE%88%E7%AE%80%E5%8D%95%E5%91%A2%EF%BC%81%EF%BC%81"><span class="toc-text">到这一步，伙伴们你们已经实现了一个登录鉴权功能了，是不是很简单呢！！</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BB%E5%87%BA%E5%8A%9F%E8%83%BD%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">登出功能的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E7%99%BB%E5%BD%95%E6%88%90%E5%8A%9F%E5%90%8E%E7%9A%84%E7%95%8C%E9%9D%A2%E5%86%99%E4%B8%80%E4%B8%AA%E9%80%80%E5%87%BA%E6%8C%89%E9%92%AE"><span class="toc-text">在登录成功后的界面写一个退出按钮</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E9%80%80%E5%87%BA%E7%9A%84%E6%8E%A5%E5%8F%A3"><span class="toc-text">后台退出的接口</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></div></div></widget>
+
+
+
+
+
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2024/02/01/45/"><span class="title">主题推荐-stellar</span></a><a class="item title" href="/2024/02/01/44/"><span class="title">css中变量的使用</span></a><a class="item title" href="/2024/02/01/43/"><span class="title">在vscode中的使用sass插件</span></a><a class="item title" href="/2024/02/01/42/"><span class="title">js扩展API</span></a><a class="item title" href="/2024/02/01/41/"><span class="title">css属性mix-blend-mode介绍</span></a><a class="item title" href="/2024/02/01/40/"><span class="title">uni-app实现app自动检测更新</span></a><a class="item title" href="/2024/02/01/39/"><span class="title">vue(原生js)事件委托与参数同时使用</span></a><a class="item title" href="/2024/02/01/38/"><span class="title">探究css的滤镜效果</span></a><a class="item title" href="/2024/02/01/37/"><span class="title">主题推荐-anzhiyu</span></a><a class="item title" href="/2024/02/01/36/"><span class="title">maupassant的基本配置</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    
+<div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a></div>
+<div class="flex-row" id="post-meta"><span class="text created"><time datetime="2024-02-01T10:09:18.191Z">2024-02-01</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-02-01T07:22:00.586Z">2024-02-01</time></span></div></div>
+</div>
+
+    
+    <div class="bottom">
+      <div class="text-area">
+        <h1 class="text title"><span>登录鉴权——Cookie与Session(适合后台嵌套模板)</span></h1>
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h3 id="本篇文章适合有node基础的同学们哦！"><a href="#本篇文章适合有node基础的同学们哦！" class="headerlink" title="本篇文章适合有node基础的同学们哦！"></a>本篇文章适合有node基础的同学们哦！</h3><h2 id="我用到的技术"><a href="#我用到的技术" class="headerlink" title="我用到的技术"></a>我用到的技术</h2><ol>
+<li>express（基于node的后端）</li>
+<li>json-server</li>
+</ol>
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">express --view=ejs nodeApp</span><br></pre></td></tr></table></figure>
+
+<h2 id="下载依赖"><a href="#下载依赖" class="headerlink" title="下载依赖"></a>下载依赖</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试能否成功访问"><a href="#测试能否成功访问" class="headerlink" title="测试能否成功访问"></a>测试能否成功访问</h2><p>开启本地服务器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node ./bin/www</span><br></pre></td></tr></table></figure>
+<p>访问<a target="_blank" rel="noopener" href="http://localhost:3000/">http://localhost:3000</a></p>
+<h2 id="创建一个登录界面在views目录下（ejs）"><a href="#创建一个登录界面在views目录下（ejs）" class="headerlink" title="创建一个登录界面在views目录下（ejs）"></a>创建一个登录界面在views目录下（ejs）</h2><p>代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">  &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;h1&gt;卖座后台登录界面：&lt;/h1&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;span&gt;用户:&lt;/span&gt;</span><br><span class="line">    &lt;input type=&quot;text&quot; placeholder=&quot;请输入用户名&quot; id=&quot;username&quot;&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;span&gt;密码:&lt;/span&gt;</span><br><span class="line">    &lt;input type=&quot;password&quot; placeholder=&quot;请输入密码&quot; id=&quot;mypassword&quot;&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;div&gt;&lt;button id=&quot;btn&quot;&gt;login&lt;/button&gt;&lt;/div&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    btn.onclick = function () &#123;</span><br><span class="line">      // console.log(username.value,mypassword.value)</span><br><span class="line">      fetch(&quot;http://localhost:3001/login&quot;, &#123;</span><br><span class="line">        method: &#x27;POST&#x27;,</span><br><span class="line">        headers: &#123; &quot;content-type&quot;: &quot;application/json&quot; &#125;,</span><br><span class="line">        body: JSON.stringify(&#123;</span><br><span class="line">          username: username.value,</span><br><span class="line">          password: mypassword.value</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;).then(res =&gt; res.json()).then(res =&gt; &#123;</span><br><span class="line">        if(res.ok===1)&#123;</span><br><span class="line">          alert(&quot;登录成功&quot;)</span><br><span class="line">          location.href = &#x27;http://localhost:3001/index&#x27;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">          alert(&#x27;登录失败&#x27;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="创建一个登录成功后的跳转界面（ejs）"><a href="#创建一个登录成功后的跳转界面（ejs）" class="headerlink" title="创建一个登录成功后的跳转界面（ejs）"></a>创建一个登录成功后的跳转界面（ejs）</h2><p>创建完后记得写好接口，渲染这个ejs页面</p>
+<h2 id="后台路由代码"><a href="#后台路由代码" class="headerlink" title="后台路由代码"></a>后台路由代码</h2><p>这里使用fetch一直报错，我不知道什么原因，后面使用了axios(好用，爱用，哈哈哈哈！！)</p>
+<h4 id="下载json-server"><a href="#下载json-server" class="headerlink" title="下载json-server"></a>下载json-server</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g json-server</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="开启json-server服务"><a href="#开启json-server服务" class="headerlink" title="开启json-server服务"></a>开启json-server服务</h4><p><font color="red">这里要注意:express项目与json-server的默认端口都是3000,建议修改express的端口（容易改），在bin目录下修改www即可</font><br>在你的express项目下创建user.json<br>user.json的内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;users&quot;:[</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;username&quot;:&quot;admin&quot;,</span><br><span class="line">            &quot;password&quot;:&quot;123&quot;,</span><br><span class="line">            &quot;mony&quot;:&quot;567&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;username&quot;:&quot;test&quot;,</span><br><span class="line">            &quot;password&quot;:&quot;1234&quot;,</span><br><span class="line">            &quot;mony&quot;:&quot;11&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">json-server --watch user.json</span><br></pre></td></tr></table></figure>
+<p>这样你的user.json这个文件就在json-server的监听下了</p>
+<h4 id="下载axios-一种请求方式"><a href="#下载axios-一种请求方式" class="headerlink" title="下载axios(一种请求方式)"></a>下载axios(一种请求方式)</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i axios</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">var express = require(&#x27;express&#x27;);</span><br><span class="line">var axios = require(&#x27;axios&#x27;)</span><br><span class="line">var router = express.Router();</span><br><span class="line"></span><br><span class="line">/* GET home page. */</span><br><span class="line">router.get(&#x27;/&#x27;, function(req, res, next) &#123;</span><br><span class="line">  res.render(&#x27;login&#x27;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">router.post(&#x27;/login&#x27;,function(req, res, next) &#123;</span><br><span class="line">  let dataLength</span><br><span class="line">  axios.get(&quot;http://localhost:3000/users&quot;).then(re=&gt;&#123;</span><br><span class="line">    dataLength=re.data.length</span><br><span class="line">    for(var i=0;i&lt;dataLength;i++)&#123;</span><br><span class="line">      if(re.data[i].username==req.body.username &amp;&amp; re.data[i].password==req.body.password)&#123;</span><br><span class="line">        res.send(&#123;ok:1&#125;)</span><br><span class="line">        return</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(i===dataLength)&#123;</span><br><span class="line">      res.send(&#123;ok:0&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">module.exports = router;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这里作者只是讲一下登录鉴权的一个过程，就没有创建数据库了，<br>正常的应该在路由中去获取数据库的内容，验证前端提交用户名与密码是否正确,<br>作者这里就使用json-server模拟了一下后台数据</p>
+<h5 id="到这里最简单的一个登录鉴权就已经写完了"><a href="#到这里最简单的一个登录鉴权就已经写完了" class="headerlink" title="到这里最简单的一个登录鉴权就已经写完了"></a>到这里最简单的一个登录鉴权就已经写完了</h5><p>但是现在好像不登录直接输入后台url地址也能访问，现在就要进入本篇文章的主题了，<br>使用Express中间件 Express-session</p>
+<h2 id="安装express-session中间件"><a href="#安装express-session中间件" class="headerlink" title="安装express-session中间件"></a>安装express-session中间件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i express-session</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置app-js文件"><a href="#配置app-js文件" class="headerlink" title="配置app.js文件"></a>配置app.js文件</h2><h4 id="导入express-session"><a href="#导入express-session" class="headerlink" title="导入express-session"></a>导入express-session</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const session = require(&#x27;express-session&#x27;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置session（记得放在express的路由之前）"><a href="#配置session（记得放在express的路由之前）" class="headerlink" title="配置session（记得放在express的路由之前）"></a>配置session（记得放在express的路由之前）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 设置session</span><br><span class="line">app.use(session(&#123;</span><br><span class="line">  secret: &#x27;asdjlzxco&#x27;, //秘钥</span><br><span class="line">  resave: true,  //重新设置session后，就会重新开始计算过期时间</span><br><span class="line">  saveUninitialized: true, //一开始访问就会生成一个无效的cookie,</span><br><span class="line">  cookie: &#123; secure: false, maxAge: 1000*60*60 &#125;,</span><br><span class="line">  name: &#x27;maiZuo&#x27;</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改post请求的路由-设置req-session-username的值"><a href="#修改post请求的路由-设置req-session-username的值" class="headerlink" title="修改post请求的路由(设置req.session.username的值)"></a>修改post请求的路由(设置req.session.username的值)</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">router.post(&#x27;/&#x27;,function(req, res, next) &#123;</span><br><span class="line">  let dataLength</span><br><span class="line">  axios.get(&quot;http://localhost:3000/users&quot;).then(re=&gt;&#123;</span><br><span class="line">    dataLength=re.data.length</span><br><span class="line">    for(var i=0;i&lt;dataLength;i++)&#123;</span><br><span class="line">      if(re.data[i].username==req.body.username &amp;&amp; re.data[i].password==req.body.password)&#123;</span><br><span class="line">        req.session.username = re.data[i].username</span><br><span class="line">        res.send(&#123;ok:1&#125;)</span><br><span class="line">        return</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(i===dataLength)&#123;</span><br><span class="line">      res.send(&#123;ok:0&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="创建中间件对接口进行拦截"><a href="#创建中间件对接口进行拦截" class="headerlink" title="创建中间件对接口进行拦截"></a>创建中间件对接口进行拦截</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">app.use((req,res,next)=&gt;&#123;</span><br><span class="line">  // 解决重定向次数过多，只要是关于登录有关的接口就放行</span><br><span class="line">  if(req.url.includes(&#x27;login&#x27;))&#123;</span><br><span class="line">    next()</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  if(req.session.username)&#123;</span><br><span class="line">	    //重新设置session，刷新过期时间</span><br><span class="line">	req.session.mydate = Date.now()</span><br><span class="line">    next()</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    // 重定向到登录界面</span><br><span class="line">    res.redirect(&#x27;http://localhost:3001/login&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="整个app-js代码"><a href="#整个app-js代码" class="headerlink" title="整个app.js代码"></a>整个app.js代码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">var createError = require(&#x27;http-errors&#x27;);</span><br><span class="line">var express = require(&#x27;express&#x27;);</span><br><span class="line">const session = require(&#x27;express-session&#x27;)</span><br><span class="line">var path = require(&#x27;path&#x27;);</span><br><span class="line">var cookieParser = require(&#x27;cookie-parser&#x27;);</span><br><span class="line">var logger = require(&#x27;morgan&#x27;);</span><br><span class="line"></span><br><span class="line">var loginRouter = require(&#x27;./routes/login&#x27;);</span><br><span class="line">var usersRouter = require(&#x27;./routes/users&#x27;);</span><br><span class="line"></span><br><span class="line">var app = express();</span><br><span class="line"></span><br><span class="line">// view engine setup</span><br><span class="line">app.set(&#x27;views&#x27;, path.join(__dirname, &#x27;views&#x27;));</span><br><span class="line">app.set(&#x27;view engine&#x27;, &#x27;ejs&#x27;);</span><br><span class="line"></span><br><span class="line">app.use(logger(&#x27;dev&#x27;));</span><br><span class="line">app.use(express.json());</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;));</span><br><span class="line">app.use(cookieParser());</span><br><span class="line">app.use(express.static(path.join(__dirname, &#x27;public&#x27;)));</span><br><span class="line"></span><br><span class="line">// 设置session</span><br><span class="line">app.use(session(&#123;</span><br><span class="line">  secret: &#x27;asdjlzxco&#x27;, //秘钥</span><br><span class="line">  resave: true,  //重新设置session后，就会重新开始计算过期时间</span><br><span class="line">  saveUninitialized: true, //一开始访问就会生成一个无效的cookie,</span><br><span class="line">  cookie: &#123; secure: false, maxAge: 1000*60*60 &#125;,</span><br><span class="line">  name: &#x27;maiZuo&#x27;</span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line">// 中间件对接口进行拦截</span><br><span class="line">app.use((req,res,next)=&gt;&#123;</span><br><span class="line">  // 解决重定向次数过多，只要是关于登录有关的接口就放行</span><br><span class="line">  if(req.url.includes(&#x27;login&#x27;))&#123;</span><br><span class="line">    next()</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  if(req.session.username)&#123;</span><br><span class="line">	  //重新设置session，刷新过期时间</span><br><span class="line">	req.session.mydate = Date.now()</span><br><span class="line">    next()</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    // 重定向到登录界面</span><br><span class="line">    res.redirect(&#x27;http://localhost:3001/login&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(&#x27;/login&#x27;, loginRouter); //登录界面的路由</span><br><span class="line">app.use(&#x27;/&#x27;, usersRouter); //登录成功后界面的路由</span><br><span class="line"></span><br><span class="line">// catch 404 and forward to error handler</span><br><span class="line">app.use(function(req, res, next) &#123;</span><br><span class="line">  next(createError(404));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// error handler</span><br><span class="line">app.use(function(err, req, res, next) &#123;</span><br><span class="line">  // set locals, only providing error in development</span><br><span class="line">  res.locals.message = err.message;</span><br><span class="line">  res.locals.error = req.app.get(&#x27;env&#x27;) === &#x27;development&#x27; ? err : &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  // render the error page</span><br><span class="line">  res.status(err.status || 500);</span><br><span class="line">  res.render(&#x27;error&#x27;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">module.exports = app;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="到这一步，伙伴们你们已经实现了一个登录鉴权功能了，是不是很简单呢！！"><a href="#到这一步，伙伴们你们已经实现了一个登录鉴权功能了，是不是很简单呢！！" class="headerlink" title="到这一步，伙伴们你们已经实现了一个登录鉴权功能了，是不是很简单呢！！"></a>到这一步，伙伴们你们已经实现了一个登录鉴权功能了，是不是很简单呢！！</h4><h2 id="登出功能的实现"><a href="#登出功能的实现" class="headerlink" title="登出功能的实现"></a>登出功能的实现</h2><h4 id="在登录成功后的界面写一个退出按钮"><a href="#在登录成功后的界面写一个退出按钮" class="headerlink" title="在登录成功后的界面写一个退出按钮"></a>在登录成功后的界面写一个退出按钮</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1&gt;卖座后台&lt;/h1&gt;</span><br><span class="line">    &lt;div&gt;&lt;button id=&quot;btn&quot;&gt;退出登录&lt;/button&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        btn.onclick=function()&#123;</span><br><span class="line">            fetch(&#x27;http://localhost:3001/exit&#x27;).then(res=&gt;res.json()).then(res=&gt;&#123;</span><br><span class="line">                if(res.ok===1)&#123;</span><br><span class="line">                    location.href = &#x27;./login&#x27;</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    alert(&quot;退出失败&quot;)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="后台退出的接口"><a href="#后台退出的接口" class="headerlink" title="后台退出的接口"></a>后台退出的接口</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">router.get(&#x27;/exit&#x27;, function(req, res, next) &#123;</span><br><span class="line">  req.session.destroy()</span><br><span class="line">  res.send(&#123;ok:1&#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>呼！终于写完了，这种方法的弊端还是很多的，一旦登录用户一多，后台内存不断变大，容易导致<br>后台直接奔溃，当然session可以存数据库，但是流量一大对数据库的压力也不小，所以也有另外一种<br>登录鉴权方案——————JWT方案</p>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2024/02/01/19/">登录鉴权——JWT(前后端分离)</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2024/02/01/17/">Electron的初次认识</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">小哲</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4">Stellar 1.26.4</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg t="1705412886951" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8331" width="200" height="200"><path d="M638.72 970.666667h-256c-118.186667 0-198.272-25.002667-251.946667-78.72S52.053333 758.186667 52.053333 640V384c0-118.186667 25.002667-198.272 78.72-251.946667S264.533333 53.333333 382.72 53.333333h256c118.186667 0 198.272 25.002667 251.946667 78.72S969.386667 265.813333 969.386667 384v256c0 118.186667-25.002667 198.272-78.72 251.946667S756.906667 970.666667 638.72 970.666667z m-256-853.333334c-100.096 0-165.802667 19.2-206.72 59.946667S116.053333 283.904 116.053333 384v256c0 100.096 19.072 165.802667 59.946667 206.72S282.624 906.666667 382.72 906.666667h256c100.096 0 165.802667-19.072 206.72-59.946667S905.386667 740.096 905.386667 640V384c0-100.096-19.072-165.802667-59.946667-206.72S738.816 117.333333 638.72 117.333333z" p-id="8332"></path><path d="M638.72 970.666667a32 32 0 0 1-32-32V85.333333a32 32 0 0 1 32-32 32 32 0 0 1 32 32v853.333334a32 32 0 0 1-32 32zM340.053333 653.226667a31.914667 31.914667 0 0 1-22.613333-9.386667 32 32 0 0 1 0-45.269333L404.053333 512 317.44 425.386667a32 32 0 0 1 0-45.226667 32 32 0 0 1 45.226667 0l109.226666 109.226667a32 32 0 0 1 0 45.269333L362.666667 643.84a31.914667 31.914667 0 0 1-22.613334 9.386667z" p-id="8333"></path></svg>
+  </button>
+</div>
+<div class="main-mask" onclick="sidebar.toggle()"></div></div></div><div class="scripts">
+<script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.26.4';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js","memos":"/js/plugins/memos.js","marked":"/js/plugins/marked.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js","transition":"fade"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@10.3/swiper-bundle.min.css","js":"https://unpkg.com/swiper@10.3/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.bootcdn.net/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js","distance":"16px","duration":800,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","flying_pages":"https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js","css":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css","selector":null});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied","toast":"复制成功"});
+  }
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.26.4" async></script>
+
+<!-- optional -->
+
+
+
+
+
+
+<!-- inject -->
+
+</div></body></html>

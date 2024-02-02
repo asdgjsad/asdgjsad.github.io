@@ -1,0 +1,367 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4" theme-name="Stellar" theme-version="1.26.4">
+  
+  <meta name="generator" content="Hexo 7.1.1">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>js扩展API - lazychild's Blog</title>
+
+  
+    <meta name="description" content="数组方法 拆分多维数组flat 123let arr &#x3D; [1,2,[3,4,[5,6]]]console.log(arr.flat(2))&#x2F;&#x2F; [1,2,3,4,5,6]   数组元素修改fill 123let arr &#x3D; [1, 2, 3, 4, 5]console.log(arr.fill(10, 2))&#x2F;&#x2F; [1, 2, 10, 10, 10]   只改变数组其中一个元素with 123l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js扩展API">
+<meta property="og:url" content="https://www.lazychild.fun/2024/02/01/42/index.html">
+<meta property="og:site_name" content="lazychild&#39;s Blog">
+<meta property="og:description" content="数组方法 拆分多维数组flat 123let arr &#x3D; [1,2,[3,4,[5,6]]]console.log(arr.flat(2))&#x2F;&#x2F; [1,2,3,4,5,6]   数组元素修改fill 123let arr &#x3D; [1, 2, 3, 4, 5]console.log(arr.fill(10, 2))&#x2F;&#x2F; [1, 2, 10, 10, 10]   只改变数组其中一个元素with 123l">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-01T10:09:18.237Z">
+<meta property="article:modified_time" content="2024-02-01T07:28:38.757Z">
+<meta property="article:author" content="小哲">
+<meta property="article:tag" content="js">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta name="keywords" content="js">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.26.4">
+
+  
+
+  
+
+  
+  
+</head>
+<body>
+
+<div class="l_body content tech" id="start" layout="post" ><aside class="l_left"><div class="sidebar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/tou.gif" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">爱敲代码的小哲</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" class="icon search-icon" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"></nav>
+</div>
+<div class="widgets">
+
+<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95"><span class="toc-text">数组方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E6%96%B9%E6%B3%95"><span class="toc-text">数值方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%96%B9%E6%B3%95"><span class="toc-text">字符串方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#at%E5%87%BD%E6%95%B0"><span class="toc-text">at函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#generator%E5%87%BD%E6%95%B0"><span class="toc-text">generator函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reflect"><span class="toc-text">Reflect</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#matchAll-%E6%96%B9%E6%B3%95"><span class="toc-text">matchAll()方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise%E9%9B%86%E5%90%88"><span class="toc-text">Promise集合</span></a></li></ol></div></div></widget>
+
+
+
+
+
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2024/02/01/45/"><span class="title">主题推荐-stellar</span></a><a class="item title" href="/2024/02/01/44/"><span class="title">css中变量的使用</span></a><a class="item title" href="/2024/02/01/43/"><span class="title">在vscode中的使用sass插件</span></a><a class="item title active" href="/2024/02/01/42/"><span class="title">js扩展API</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="item title" href="/2024/02/01/41/"><span class="title">css属性mix-blend-mode介绍</span></a><a class="item title" href="/2024/02/01/40/"><span class="title">uni-app实现app自动检测更新</span></a><a class="item title" href="/2024/02/01/39/"><span class="title">vue(原生js)事件委托与参数同时使用</span></a><a class="item title" href="/2024/02/01/38/"><span class="title">探究css的滤镜效果</span></a><a class="item title" href="/2024/02/01/37/"><span class="title">主题推荐-anzhiyu</span></a><a class="item title" href="/2024/02/01/36/"><span class="title">maupassant的基本配置</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    
+<div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%89%8D%E7%AB%AF3%E5%A4%A7%E4%BB%B6/">前端3大件</a></div>
+<div class="flex-row" id="post-meta"><span class="text created"><time datetime="2024-02-01T10:09:18.237Z">2024-02-01</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-02-01T07:28:38.757Z">2024-02-01</time></span></div></div>
+</div>
+
+    
+    <div class="bottom">
+      <div class="text-area">
+        <h1 class="text title"><span>js扩展API</span></h1>
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="数组方法"><a href="#数组方法" class="headerlink" title="数组方法"></a>数组方法</h2><ol>
+<li><p>拆分多维数组flat</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,[<span class="number">3</span>,<span class="number">4</span>,[<span class="number">5</span>,<span class="number">6</span>]]]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">flat</span>(<span class="number">2</span>))</span><br><span class="line"><span class="comment">// [1,2,3,4,5,6]</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>数组元素修改fill</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">fill</span>(<span class="number">10</span>, <span class="number">2</span>))</span><br><span class="line"><span class="comment">// [1, 2, 10, 10, 10]</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>只改变数组其中一个元素with</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">with</span>(<span class="number">1</span>, <span class="number">100</span>))</span><br><span class="line"><span class="comment">//[1, 100, 3, 4, 5]</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="数值方法"><a href="#数值方法" class="headerlink" title="数值方法"></a>数值方法</h2><ol>
+<li><p>Math.trunc() 方法会将数字的小数部分去掉，只保留整数部分</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">123.9999</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">trunc</span>(a))</span><br><span class="line"><span class="comment">// 123</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Math.sign() 函数返回一个数字的符号，指示数字是正数，负数还是零</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">sign</span>(<span class="number">99</span>))</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">sign</span>(-<span class="number">3</span>))</span><br><span class="line"><span class="comment">// -1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">sign</span>(<span class="number">0</span>))</span><br><span class="line"><span class="comment">// 0</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="字符串方法"><a href="#字符串方法" class="headerlink" title="字符串方法"></a>字符串方法</h2><ol>
+<li><p>startsWith和endsWith方法可以判断字符串是否以指定字符串开头或结尾</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">&quot;hello&quot;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">startsWith</span>(<span class="string">&quot;h&quot;</span>))</span><br><span class="line"><span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">startsWith</span>(<span class="string">&quot;h&quot;</span>, <span class="number">1</span>))</span><br><span class="line"><span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">endsWith</span>(<span class="string">&quot;o&quot;</span>))</span><br><span class="line"><span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符串的repeat方法可以重复字符串</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">&quot;hello&quot;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">repeat</span>(<span class="number">3</span>))</span><br><span class="line"><span class="comment">// hellohellohello</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符串的padStart和padEnd方法可以对字符串进行填充</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">&quot;hello&quot;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">padStart</span>(<span class="number">10</span>, <span class="string">&quot;world&quot;</span>))</span><br><span class="line"><span class="comment">// worldhello</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">padEnd</span>(<span class="number">10</span>, <span class="string">&quot;world&quot;</span>))</span><br><span class="line"><span class="comment">// helloworld</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="at函数"><a href="#at函数" class="headerlink" title="at函数"></a>at函数</h2><p>用于访问数组</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">at</span>(<span class="number">1</span>))</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">at</span>(-<span class="number">1</span>))</span><br><span class="line"><span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="generator函数"><a href="#generator函数" class="headerlink" title="generator函数"></a>generator函数</h2><p>生成器函数可以暂停执行，下次调用时继续执行</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> *<span class="title function_">generator</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="keyword">yield</span> <span class="string">&#x27;aaa&#x27;</span>;</span><br><span class="line">            <span class="keyword">yield</span> <span class="string">&#x27;bbb&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">let</span> a = <span class="title function_">generator</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> item <span class="keyword">of</span> <span class="title function_">generator</span>())&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(item);</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">// aaa</span></span><br><span class="line"><span class="comment">// bbb</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h2><p>Reflect对象提供了一组静态方法，用于操作对象的属性和方法</p>
+<ol>
+<li><p>Reflect.has判断对象是否存在某个属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">            <span class="attr">name</span>: <span class="string">&#x27;xiaoming&#x27;</span>,</span><br><span class="line">            <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Reflect</span>.<span class="title function_">has</span>(obj, <span class="string">&#x27;name&#x27;</span>))</span><br><span class="line"><span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+<li><p>Reflect.ownKeys()返回这个对象自身的属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Reflect</span>.<span class="title function_">ownKeys</span>(obj))</span><br><span class="line"><span class="comment">// [ &#x27;name&#x27;, &#x27;age&#x27; ]</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>Reflect.defineProperty()为对象添加一个属性，并且可以进行配置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Reflect</span>.<span class="title function_">defineProperty</span>(obj, <span class="string">&#x27;height&#x27;</span>, &#123;</span><br><span class="line">            <span class="attr">value</span>: <span class="number">170</span>,</span><br><span class="line">            <span class="attr">writable</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">configurable</span>: <span class="literal">true</span></span><br><span class="line">        &#125;)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj)</span><br><span class="line"><span class="comment">// &#123; name: &#x27;xiaoming&#x27;, age: 18, height: 170 &#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Reflect.set()为对象直接添加一个属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Reflect</span>.<span class="title function_">set</span>(obj, <span class="string">&#x27;weight&#x27;</span>, <span class="number">70</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj)</span><br><span class="line"><span class="comment">// &#123;name: &#x27;xiaoming&#x27;, age: 18, weight: 70&#125;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>Reflect与Proxy联合使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> proxy = <span class="keyword">new</span> <span class="title class_">Proxy</span>(obj, &#123;</span><br><span class="line">        <span class="title function_">get</span>(<span class="params">target, key</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="title class_">Reflect</span>.<span class="title function_">get</span>(...<span class="variable language_">arguments</span>)</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="title function_">set</span>(<span class="params">target, key, value</span>) &#123;</span><br><span class="line">            <span class="title class_">Reflect</span>.<span class="title function_">set</span>(...<span class="variable language_">arguments</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="matchAll-方法"><a href="#matchAll-方法" class="headerlink" title="matchAll()方法"></a>matchAll()方法</h2><p>返回一个迭代器，该迭代器包含了检索字符串与正则表达式进行匹配的所有结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let str = `</span><br><span class="line">        &lt;ul&gt;</span><br><span class="line">            &lt;li&gt;1111&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;2222&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;3333&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;4444&lt;/li&gt;</span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line">    `</span><br><span class="line">let reg = /&lt;li&gt;(?&lt;content&gt;.*)&lt;\/li&gt;/g</span><br><span class="line">for(var item of str.matchAll(reg))&#123;</span><br><span class="line">    console.log(item)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Promise集合"><a href="#Promise集合" class="headerlink" title="Promise集合"></a>Promise集合</h2><p>一个 Promise 必然处于以下几种状态之一：<br>1.待定（pending）：初始状态，既没有被兑现，也没有被拒绝。<br>2.已兑现（fulfilled）：意味着操作成功完成。<br>3.已拒绝（rejected）：意味着操作失败。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">ajax</span>(<span class="params">str, time, isSuccess</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (isSuccess)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                    <span class="title function_">resolve</span>(str);</span><br><span class="line">                &#125;, time);</span><br><span class="line">              &#125;);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                    <span class="title function_">reject</span>(str);</span><br><span class="line">                &#125;, time);</span><br><span class="line">              &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>Promise.all()等待所有 Promise, 在任意一个 Promise 被拒绝时拒绝</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Promise</span>.<span class="title function_">all</span>([<span class="title function_">ajax</span>(<span class="string">&#x27;1&#x27;</span>,<span class="number">1000</span>, <span class="literal">true</span>), <span class="title function_">ajax</span>(<span class="string">&#x27;2&#x27;</span>,<span class="number">2000</span>, <span class="literal">true</span>)]).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line">        &#125;).<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(err)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>Promise.race() 看哪一个 Promise 先被执行完，就执行哪一个 Promise</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Promise</span>.<span class="title function_">race</span>([<span class="title function_">ajax</span>(<span class="string">&#x27;1&#x27;</span>,<span class="number">1000</span>, <span class="literal">true</span>), <span class="title function_">ajax</span>(<span class="string">&#x27;2&#x27;</span>,<span class="number">2000</span>, <span class="literal">true</span>)]).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line">        &#125;).<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(err)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>Promise.any()当输入的任何 promise 实现时，此返回的 promise 将实现，并具有第一个 fulfillation 值。当所有输入的 promise 都拒绝时（包括传递空可迭代对象时），它会拒绝</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Promise</span>.<span class="title function_">any</span>([<span class="title function_">ajax</span>(<span class="string">&#x27;1&#x27;</span>,<span class="number">1000</span>, <span class="literal">false</span>), <span class="title function_">ajax</span>(<span class="string">&#x27;2&#x27;</span>,<span class="number">2000</span>, <span class="literal">true</span>)]).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">             <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line">         &#125;).<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">             <span class="variable language_">console</span>.<span class="title function_">log</span>(err, <span class="string">&#x27;拒绝&#x27;</span>)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>Promise.allSettled() 无论任何 promise 实现，此返回的 promise 都将实现，并具有一个数组，其中包含每个输入 promise 的状态和值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Promise</span>.<span class="title function_">allSettled</span>([<span class="title function_">ajax</span>(<span class="string">&#x27;1&#x27;</span>,<span class="number">1000</span>, <span class="literal">false</span>), <span class="title function_">ajax</span>(<span class="string">&#x27;2&#x27;</span>,<span class="number">2000</span>, <span class="literal">false</span>)]).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line">        &#125;).<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(err)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2024/02/01/43/">在vscode中的使用sass插件</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2024/02/01/41/">css属性mix-blend-mode介绍</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">小哲</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4">Stellar 1.26.4</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg t="1705412886951" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8331" width="200" height="200"><path d="M638.72 970.666667h-256c-118.186667 0-198.272-25.002667-251.946667-78.72S52.053333 758.186667 52.053333 640V384c0-118.186667 25.002667-198.272 78.72-251.946667S264.533333 53.333333 382.72 53.333333h256c118.186667 0 198.272 25.002667 251.946667 78.72S969.386667 265.813333 969.386667 384v256c0 118.186667-25.002667 198.272-78.72 251.946667S756.906667 970.666667 638.72 970.666667z m-256-853.333334c-100.096 0-165.802667 19.2-206.72 59.946667S116.053333 283.904 116.053333 384v256c0 100.096 19.072 165.802667 59.946667 206.72S282.624 906.666667 382.72 906.666667h256c100.096 0 165.802667-19.072 206.72-59.946667S905.386667 740.096 905.386667 640V384c0-100.096-19.072-165.802667-59.946667-206.72S738.816 117.333333 638.72 117.333333z" p-id="8332"></path><path d="M638.72 970.666667a32 32 0 0 1-32-32V85.333333a32 32 0 0 1 32-32 32 32 0 0 1 32 32v853.333334a32 32 0 0 1-32 32zM340.053333 653.226667a31.914667 31.914667 0 0 1-22.613333-9.386667 32 32 0 0 1 0-45.269333L404.053333 512 317.44 425.386667a32 32 0 0 1 0-45.226667 32 32 0 0 1 45.226667 0l109.226666 109.226667a32 32 0 0 1 0 45.269333L362.666667 643.84a31.914667 31.914667 0 0 1-22.613334 9.386667z" p-id="8333"></path></svg>
+  </button>
+</div>
+<div class="main-mask" onclick="sidebar.toggle()"></div></div></div><div class="scripts">
+<script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.26.4';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js","memos":"/js/plugins/memos.js","marked":"/js/plugins/marked.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js","transition":"fade"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@10.3/swiper-bundle.min.css","js":"https://unpkg.com/swiper@10.3/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.bootcdn.net/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js","distance":"16px","duration":800,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","flying_pages":"https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js","css":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css","selector":null});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied","toast":"复制成功"});
+  }
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.26.4" async></script>
+
+<!-- optional -->
+
+
+
+
+
+
+<!-- inject -->
+
+</div></body></html>

