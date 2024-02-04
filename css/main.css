@@ -5892,9 +5892,12 @@ body {
   background-size: cover !important;
 }
 .widgets {
-  background-color: rgba(255,255,255,0.4);
+  background-color: rgba(255,255,255,0.6);
   border-radius: 10px;
   margin-bottom: 10px;
+}
+.nav-area .menu .nav-item {
+  background: rgba(255,255,255,0.9) !important;
 }
 .search-result-list li {
   background-color: rgba(255,255,255,0.6);
@@ -6002,6 +6005,13 @@ body {
   background-color: #ff6b81;
 }
 /* 定义动画 */
+.nav-item svg.icon {
+  width: 25px;
+}
+.nav-area .menu .nav-item img,
+.nav-area .menu .nav-item svg {
+  filter: none !important;
+}
 @-moz-keyframes move {
   0% {
     right: 0;
