@@ -16,29 +16,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
   
-  <title>uni-app实现app自动检测更新 - lazychild's Blog</title>
+  <title>解决vite+vue中别名问题 - lazychild's Blog</title>
 
   
-    <meta name="description" content="前言在做app项目时，app版本管理是必不可少的，在发布新版本后，应该提醒用户需要更新了此时需要两个功能：  后台进行版本发布与管理（使用uni-app的模板admin即可，需要关联Dcloud的服务空间） 前台检测更新（使用uni-app的插件, https:&#x2F;&#x2F;ext.dcloud.net.cn&#x2F;plugin?id&#x3D;4542）  后台 在HBuilder里面新建一个项目（模板为uni-admi">
+    <meta name="description" content="创建vite+vue项目1npm create vite@latest   配置别名在vite.config.js中配置别名 12345678910111213import &#123; defineConfig &#125; from &#x27;vite&#x27;import vue from &#x27;@vitejs&#x2F;plugin-vue&#x27;import path from &amp;#">
 <meta property="og:type" content="article">
-<meta property="og:title" content="uni-app实现app自动检测更新">
-<meta property="og:url" content="https://www.lazychild.fun/2024/02/01/40/index.html">
+<meta property="og:title" content="解决vite+vue中别名问题">
+<meta property="og:url" content="https://www.lazychild.fun/2024/02/20/47/index.html">
 <meta property="og:site_name" content="lazychild&#39;s Blog">
-<meta property="og:description" content="前言在做app项目时，app版本管理是必不可少的，在发布新版本后，应该提醒用户需要更新了此时需要两个功能：  后台进行版本发布与管理（使用uni-app的模板admin即可，需要关联Dcloud的服务空间） 前台检测更新（使用uni-app的插件, https:&#x2F;&#x2F;ext.dcloud.net.cn&#x2F;plugin?id&#x3D;4542）  后台 在HBuilder里面新建一个项目（模板为uni-admi">
+<meta property="og:description" content="创建vite+vue项目1npm create vite@latest   配置别名在vite.config.js中配置别名 12345678910111213import &#123; defineConfig &#125; from &#x27;vite&#x27;import vue from &#x27;@vitejs&#x2F;plugin-vue&#x27;import path from &amp;#">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/%E6%96%87%E7%AB%A040_1.png">
-<meta property="og:image" content="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/%E6%96%87%E7%AB%A040_2.png">
-<meta property="og:image" content="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/%E6%96%87%E7%AB%A040_3.png">
-<meta property="article:published_time" content="2024-02-01T10:09:18.234Z">
-<meta property="article:modified_time" content="2024-02-01T07:28:24.945Z">
+<meta property="article:published_time" content="2024-02-20T13:36:10.564Z">
+<meta property="article:modified_time" content="2024-02-20T13:43:55.387Z">
 <meta property="article:author" content="小哲">
-<meta property="article:tag" content="uni-app">
+<meta property="article:tag" content="vue">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/%E6%96%87%E7%AB%A040_1.png">
   
   
   
-  <meta name="keywords" content="uni-app">
+  <meta name="keywords" content="vue">
 
   <!-- feed -->
   
@@ -67,7 +63,7 @@
 </div>
 <div class="widgets">
 
-<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0"><span class="toc-text">后台</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E5%8F%B0%E6%A3%80%E6%B5%8B%E6%9B%B4%E6%96%B0"><span class="toc-text">前台检测更新</span></a></li></ol></div></div></widget>
+<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAvite-vue%E9%A1%B9%E7%9B%AE"><span class="toc-text">创建vite+vue项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%88%AB%E5%90%8D"><span class="toc-text">配置别名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3vscode%E4%BB%8D%E7%84%B6%E6%97%A0%E6%B3%95%E8%AF%86%E5%88%AB%E5%88%AB%E5%90%8D%E9%97%AE%E9%A2%98"><span class="toc-text">解决vscode仍然无法识别别名问题</span></a></li></ol></div></div></widget>
 
 
 
@@ -75,7 +71,7 @@
 
 
 
-<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2024/02/20/47/"><span class="title">解决vite+vue中别名问题</span></a><a class="item title" href="/2024/02/15/46/"><span class="title">npm创建vue项目</span></a><a class="item title" href="/2024/02/01/45/"><span class="title">主题推荐-stellar</span></a><a class="item title" href="/2024/02/01/44/"><span class="title">css中变量的使用</span></a><a class="item title" href="/2024/02/01/43/"><span class="title">在vscode中的使用sass插件</span></a><a class="item title" href="/2024/02/01/42/"><span class="title">js扩展API</span></a><a class="item title" href="/2024/02/01/41/"><span class="title">css属性mix-blend-mode介绍</span></a><a class="item title active" href="/2024/02/01/40/"><span class="title">uni-app实现app自动检测更新</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="item title" href="/2024/02/01/39/"><span class="title">vue(原生js)事件委托与参数同时使用</span></a><a class="item title" href="/2024/02/01/38/"><span class="title">探究css的滤镜效果</span></a></div></widget>
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title active" href="/2024/02/20/47/"><span class="title">解决vite+vue中别名问题</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="item title" href="/2024/02/15/46/"><span class="title">npm创建vue项目</span></a><a class="item title" href="/2024/02/01/45/"><span class="title">主题推荐-stellar</span></a><a class="item title" href="/2024/02/01/44/"><span class="title">css中变量的使用</span></a><a class="item title" href="/2024/02/01/43/"><span class="title">在vscode中的使用sass插件</span></a><a class="item title" href="/2024/02/01/42/"><span class="title">js扩展API</span></a><a class="item title" href="/2024/02/01/41/"><span class="title">css属性mix-blend-mode介绍</span></a><a class="item title" href="/2024/02/01/40/"><span class="title">uni-app实现app自动检测更新</span></a><a class="item title" href="/2024/02/01/39/"><span class="title">vue(原生js)事件委托与参数同时使用</span></a><a class="item title" href="/2024/02/01/38/"><span class="title">探究css的滤镜效果</span></a></div></widget>
 </div>
 
 </div></aside><div class="l_main" id="main">
@@ -89,45 +85,32 @@
     
 <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a></div>
-<div class="flex-row" id="post-meta"><span class="text created"><time datetime="2024-02-01T10:09:18.234Z">2024-02-01</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-02-01T07:28:24.945Z">2024-02-01</time></span></div></div>
+<div class="flex-row" id="post-meta"><span class="text created"><time datetime="2024-02-20T13:36:10.564Z">2024-02-20</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-02-20T13:43:55.387Z">2024-02-20</time></span></div></div>
 </div>
 
     
     <div class="bottom">
       <div class="text-area">
-        <h1 class="text title"><span>uni-app实现app自动检测更新</span></h1>
+        <h1 class="text title"><span>解决vite+vue中别名问题</span></h1>
       </div>
     </div>
     
   </div>
-  </div><article class="md-text content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在做app项目时，app版本管理是必不可少的，在发布新版本后，应该提醒用户需要更新了<br>此时需要两个功能：</p>
-<ol>
-<li>后台进行版本发布与管理（使用uni-app的模板admin即可，需要关联Dcloud的服务空间）</li>
-<li>前台检测更新（使用uni-app的插件, <a target="_blank" rel="noopener" href="https://ext.dcloud.net.cn/plugin?id=4542">https://ext.dcloud.net.cn/plugin?id=4542</a>）</li>
-</ol>
-<h2 id="后台"><a href="#后台" class="headerlink" title="后台"></a>后台</h2><ol>
-<li><p>在HBuilder里面新建一个项目（模板为uni-admin）：<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/%E6%96%87%E7%AB%A040_1.png"></p>
-</li>
-<li><p>运行项目到浏览器</p>
-</li>
-<li><p>登录即可（没有先注册）</p>
-</li>
-<li><p>在系统管理中找到应用管理<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/%E6%96%87%E7%AB%A040_2.png"></p>
-</li>
-<li><p>新增一个应用<br>成功后即可发布版本，首先得进行云打包，每次发布都会让你上传apk资源包的，并且每次上传的版本号要比上次大<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/%E6%96%87%E7%AB%A040_3.png"></p>
-</li>
-</ol>
-<h2 id="前台检测更新"><a href="#前台检测更新" class="headerlink" title="前台检测更新"></a>前台检测更新</h2><ol>
-<li><p>插件引入, <a target="_blank" rel="noopener" href="https://ext.dcloud.net.cn/plugin?id=4542">https://ext.dcloud.net.cn/plugin?id=4542</a></p>
-</li>
-<li><p>添加路径<br>在pages.json文件，添加一个更新页面</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;uni_modules/uni-upgrade-center-app/pages/upgrade-popup&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;style&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">		<span class="attr">&quot;disableScroll&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;app-plus&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">			<span class="attr">&quot;backgroundColorTop&quot;</span><span class="punctuation">:</span> <span class="string">&quot;transparent&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="attr">&quot;background&quot;</span><span class="punctuation">:</span> <span class="string">&quot;transparent&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="attr">&quot;titleNView&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">			<span class="attr">&quot;scrollIndicator&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">			<span class="attr">&quot;popGesture&quot;</span><span class="punctuation">:</span> <span class="string">&quot;none&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="attr">&quot;animationType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;fade-in&quot;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="attr">&quot;animationDuration&quot;</span><span class="punctuation">:</span> <span class="number">200</span></span><br><span class="line">		<span class="punctuation">&#125;</span></span><br><span class="line">	<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>添加更新代码(建议在App.vue中引入)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import checkUpdate from &#x27;uni_modules/uni-upgrade-center-app/utils/check-update.ts&#x27;</span><br></pre></td></tr></table></figure>
-<p>在生命周期函数中调用此函数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">checkUpdate()</span><br></pre></td></tr></table></figure></li>
-</ol>
+  </div><article class="md-text content"><h2 id="创建vite-vue项目"><a href="#创建vite-vue项目" class="headerlink" title="创建vite+vue项目"></a>创建vite+vue项目</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm create vite@latest</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="配置别名"><a href="#配置别名" class="headerlink" title="配置别名"></a>配置别名</h2><p>在vite.config.js中配置别名</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span></span><br><span class="line"><span class="keyword">import</span> vue <span class="keyword">from</span> <span class="string">&#x27;@vitejs/plugin-vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> path <span class="keyword">from</span> <span class="string">&#x27;path&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// https://vitejs.dev/config/</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">plugins</span>: [<span class="title function_">vue</span>()],</span><br><span class="line">  <span class="attr">resolve</span>: &#123;</span><br><span class="line">    <span class="attr">alias</span>: &#123;</span><br><span class="line">      <span class="string">&#x27;@&#x27;</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;./src&#x27;</span>),</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>此时的@别名指向的是src目录</p>
+</blockquote>
+<h2 id="解决vscode仍然无法识别别名问题"><a href="#解决vscode仍然无法识别别名问题" class="headerlink" title="解决vscode仍然无法识别别名问题"></a>解决vscode仍然无法识别别名问题</h2><p>这个问题作者也找了很久，根据网上提示说:</p>
+<blockquote>
+<p>这个问题可能是因为VS Code的JavaScript&#x2F;TypeScript语言服务没有识别到你设置的路径别名</p>
+</blockquote>
+<p><strong>解决方法</strong><br>在你的项目根目录下添加jsconfig.json或tsconfig.json文件（取决于你是用JavaScript还是TypeScript），然后设置路径别名。例如，如果你想要设置@为src目录的别名，可以按照以下方式设置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;baseUrl&quot;</span><span class="punctuation">:</span> <span class="string">&quot;.&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;paths&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;@/*&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;src/*&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;exclude&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;node_modules&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <div class="article-footer fs14">
     <section id="license">
@@ -137,7 +120,7 @@
     </section>
     </div>
 </article>
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2024/02/01/41/">css属性mix-blend-mode介绍</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2024/02/01/39/">vue(原生js)事件委托与参数同时使用</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2024/02/15/46/">npm创建vue项目</a></div></section></div>
 
 
 
