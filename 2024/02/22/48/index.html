@@ -19,16 +19,16 @@
   <title>文件上传完整流程 - lazychild's Blog</title>
 
   
-    <meta name="description" content="思维导图 构建前端  安装项目   1npm create vite@latest  相信大家运行个项目没啥问题吧，这里作者就不多费口舌了   安装ant-design-vue   1npm install ant-design-vue@4.x --save 不用安装这个也可以，但是要自己写前端上传代码，没必要，我们就站在巨人肩膀上就行   引入ant-design-vue直接在main.ts中进">
+    <meta name="description" content="思维导图 构建前端1. 安装项目1npm create vite@latest  相信大家运行个项目没啥问题吧，这里作者就不多费口舌了 2. 安装ant-design-vue1npm install ant-design-vue@4.x --save 不用安装这个也可以，但是要自己写前端上传代码，没必要，我们就站在巨人肩膀上就行 3. 引入ant-design-vue直接在main.ts中进行全局">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文件上传完整流程">
 <meta property="og:url" content="https://www.lazychild.fun/2024/02/22/48/index.html">
 <meta property="og:site_name" content="lazychild&#39;s Blog">
-<meta property="og:description" content="思维导图 构建前端  安装项目   1npm create vite@latest  相信大家运行个项目没啥问题吧，这里作者就不多费口舌了   安装ant-design-vue   1npm install ant-design-vue@4.x --save 不用安装这个也可以，但是要自己写前端上传代码，没必要，我们就站在巨人肩膀上就行   引入ant-design-vue直接在main.ts中进">
+<meta property="og:description" content="思维导图 构建前端1. 安装项目1npm create vite@latest  相信大家运行个项目没啥问题吧，这里作者就不多费口舌了 2. 安装ant-design-vue1npm install ant-design-vue@4.x --save 不用安装这个也可以，但是要自己写前端上传代码，没必要，我们就站在巨人肩膀上就行 3. 引入ant-design-vue直接在main.ts中进行全局">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/%E6%96%87%E7%AB%A048.png">
 <meta property="article:published_time" content="2024-02-22T12:02:22.466Z">
-<meta property="article:modified_time" content="2024-02-22T13:34:56.214Z">
+<meta property="article:modified_time" content="2024-02-22T13:57:39.352Z">
 <meta property="article:author" content="小哲">
 <meta property="article:tag" content="node">
 <meta name="twitter:card" content="summary">
@@ -65,7 +65,7 @@
 </div>
 <div class="widgets">
 
-<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE"><span class="toc-text">思维导图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E5%89%8D%E7%AB%AF"><span class="toc-text">构建前端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E5%90%8E%E7%AB%AF"><span class="toc-text">构建后端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></div></div></widget>
+<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE"><span class="toc-text">思维导图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E5%89%8D%E7%AB%AF"><span class="toc-text">构建前端</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85%E9%A1%B9%E7%9B%AE"><span class="toc-text">1. 安装项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85ant-design-vue"><span class="toc-text">2. 安装ant-design-vue</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%BC%95%E5%85%A5ant-design-vue"><span class="toc-text">3. 引入ant-design-vue</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E5%90%8E%E7%AB%AF"><span class="toc-text">构建后端</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85%E9%A1%B9%E7%9B%AE-1"><span class="toc-text">1. 安装项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85crypto%E3%80%81multer"><span class="toc-text">2. 安装crypto、multer</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%90%8E%E7%AB%AF%E8%B7%AF%E7%94%B1"><span class="toc-text">3. 后端路由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F"><span class="toc-text">4. 解决跨域</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></div></div></widget>
 
 
 
@@ -87,7 +87,7 @@
     
 <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a></div>
-<div class="flex-row" id="post-meta"><span class="text created"><time datetime="2024-02-22T12:02:22.466Z">2024-02-22</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-02-22T13:34:56.214Z">2024-02-22</time></span></div></div>
+<div class="flex-row" id="post-meta"><span class="text created"><time datetime="2024-02-22T12:02:22.466Z">2024-02-22</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-02-22T13:57:39.352Z">2024-02-22</time></span></div></div>
 </div>
 
     
@@ -99,26 +99,12 @@
     
   </div>
   </div><article class="md-text content"><h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h2><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/%E6%96%87%E7%AB%A048.png"></p>
-<h2 id="构建前端"><a href="#构建前端" class="headerlink" title="构建前端"></a>构建前端</h2><blockquote>
-<ol>
-<li>安装项目</li>
-</ol>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm create vite@latest</span><br></pre></td></tr></table></figure>
+<h2 id="构建前端"><a href="#构建前端" class="headerlink" title="构建前端"></a>构建前端</h2><h4 id="1-安装项目"><a href="#1-安装项目" class="headerlink" title="1. 安装项目"></a>1. 安装项目</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm create vite@latest</span><br></pre></td></tr></table></figure>
 
 <p>相信大家运行个项目没啥问题吧，这里作者就不多费口舌了</p>
-<blockquote>
-<ol start="2">
-<li>安装ant-design-vue</li>
-</ol>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install ant-design-vue@4.x --save</span><br></pre></td></tr></table></figure>
+<h4 id="2-安装ant-design-vue"><a href="#2-安装ant-design-vue" class="headerlink" title="2. 安装ant-design-vue"></a>2. 安装ant-design-vue</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install ant-design-vue@4.x --save</span><br></pre></td></tr></table></figure>
 <p>不用安装这个也可以，但是要自己写前端上传代码，没必要，我们就站在巨人肩膀上就行</p>
-<blockquote>
-<ol start="3">
-<li>引入ant-design-vue<br>直接在main.ts中进行全局引入</li>
-</ol>
-</blockquote>
+<h4 id="3-引入ant-design-vue"><a href="#3-引入ant-design-vue" class="headerlink" title="3. 引入ant-design-vue"></a>3. 引入ant-design-vue</h4><p>直接在main.ts中进行全局引入</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./assets/main.css&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;ant-design-vue/dist/reset.css&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Antd</span> <span class="keyword">from</span> <span class="string">&#x27;ant-design-vue&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(<span class="title class_">App</span>);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="title class_">Antd</span>).<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
 <p>然后直接使用</p>
@@ -135,26 +121,14 @@
 <blockquote>
 <p>详细的信息请查看官网: <a target="_blank" rel="noopener" href="https://www.antdv.com/components/overview">https://www.antdv.com/components/overview</a></p>
 </blockquote>
-<h2 id="构建后端"><a href="#构建后端" class="headerlink" title="构建后端"></a>构建后端</h2><blockquote>
-<ol>
-<li>安装项目</li>
-</ol>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">express myapp</span><br></pre></td></tr></table></figure>
+<h2 id="构建后端"><a href="#构建后端" class="headerlink" title="构建后端"></a>构建后端</h2><h4 id="1-安装项目-1"><a href="#1-安装项目-1" class="headerlink" title="1. 安装项目"></a>1. 安装项目</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">express myapp</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<ol start="2">
-<li>安装crypto、multer</li>
-</ol>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i crypto multer -S</span><br></pre></td></tr></table></figure>
+<p>如果没有安装express，可以先安装express</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g express-generator</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<ol start="3">
-<li>后端路由</li>
-</ol>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> router = express.<span class="title class_">Router</span>();</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> crypto = <span class="built_in">require</span>(<span class="string">&#x27;crypto&#x27;</span>); <span class="comment">// 加密</span></span><br><span class="line"><span class="comment">// 引入multer</span></span><br><span class="line"><span class="keyword">const</span> multer  = <span class="built_in">require</span>(<span class="string">&#x27;multer&#x27;</span>)</span><br><span class="line"><span class="comment">// 定义一个生成唯一哈希文件名的函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">generateHashedFilename</span>(<span class="params">req, file, callback</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> hash = crypto.<span class="title function_">randomBytes</span>(<span class="number">16</span>).<span class="title function_">toString</span>(<span class="string">&#x27;hex&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> ext = path.<span class="title function_">extname</span>(file.<span class="property">originalname</span>); <span class="comment">// 获取原始文件扩展名</span></span><br><span class="line">  <span class="keyword">const</span> filename = <span class="string">`<span class="subst">$&#123;hash&#125;</span><span class="subst">$&#123;ext&#125;</span>`</span>; <span class="comment">// 将哈希与扩展名拼接成新的文件名</span></span><br><span class="line">  <span class="title function_">callback</span>(<span class="literal">null</span>, filename);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> storage = multer.<span class="title function_">diskStorage</span>(&#123;</span><br><span class="line">  <span class="attr">destination</span>: <span class="keyword">function</span> (<span class="params">req, file, cb</span>) &#123;</span><br><span class="line">    <span class="title function_">cb</span>(<span class="literal">null</span>, <span class="string">&#x27;public/images/&#x27;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">filename</span>: generateHashedFilename,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> upload = <span class="title function_">multer</span>(&#123; storage &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/* GET home page. */</span></span><br><span class="line">router.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="keyword">function</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">  res.<span class="title function_">render</span>(<span class="string">&#x27;index&#x27;</span>, &#123; <span class="attr">title</span>: <span class="string">&#x27;Express&#x27;</span> &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">router.<span class="title function_">post</span>(<span class="string">&#x27;/upload&#x27;</span>,upload.<span class="title function_">single</span>(<span class="string">&#x27;avatar&#x27;</span>), <span class="keyword">function</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">  res.<span class="title function_">send</span>(<span class="string">&#x27;恭喜上传成功&#x27;</span>);</span><br><span class="line">  <span class="comment">// console.log(req.file);</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = router;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="2-安装crypto、multer"><a href="#2-安装crypto、multer" class="headerlink" title="2. 安装crypto、multer"></a>2. 安装crypto、multer</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i crypto multer -S</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-后端路由"><a href="#3-后端路由" class="headerlink" title="3. 后端路由"></a>3. 后端路由</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> router = express.<span class="title class_">Router</span>();</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> crypto = <span class="built_in">require</span>(<span class="string">&#x27;crypto&#x27;</span>); <span class="comment">// 加密</span></span><br><span class="line"><span class="comment">// 引入multer</span></span><br><span class="line"><span class="keyword">const</span> multer  = <span class="built_in">require</span>(<span class="string">&#x27;multer&#x27;</span>)</span><br><span class="line"><span class="comment">// 定义一个生成唯一哈希文件名的函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">generateHashedFilename</span>(<span class="params">req, file, callback</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> hash = crypto.<span class="title function_">randomBytes</span>(<span class="number">16</span>).<span class="title function_">toString</span>(<span class="string">&#x27;hex&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> ext = path.<span class="title function_">extname</span>(file.<span class="property">originalname</span>); <span class="comment">// 获取原始文件扩展名</span></span><br><span class="line">  <span class="keyword">const</span> filename = <span class="string">`<span class="subst">$&#123;hash&#125;</span><span class="subst">$&#123;ext&#125;</span>`</span>; <span class="comment">// 将哈希与扩展名拼接成新的文件名</span></span><br><span class="line">  <span class="title function_">callback</span>(<span class="literal">null</span>, filename);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> storage = multer.<span class="title function_">diskStorage</span>(&#123;</span><br><span class="line">  <span class="attr">destination</span>: <span class="keyword">function</span> (<span class="params">req, file, cb</span>) &#123;</span><br><span class="line">    <span class="title function_">cb</span>(<span class="literal">null</span>, <span class="string">&#x27;public/images/&#x27;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">filename</span>: generateHashedFilename,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> upload = <span class="title function_">multer</span>(&#123; storage &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/* GET home page. */</span></span><br><span class="line">router.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="keyword">function</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">  res.<span class="title function_">render</span>(<span class="string">&#x27;index&#x27;</span>, &#123; <span class="attr">title</span>: <span class="string">&#x27;Express&#x27;</span> &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">router.<span class="title function_">post</span>(<span class="string">&#x27;/upload&#x27;</span>,upload.<span class="title function_">single</span>(<span class="string">&#x27;avatar&#x27;</span>), <span class="keyword">function</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">  res.<span class="title function_">send</span>(<span class="string">&#x27;恭喜上传成功&#x27;</span>);</span><br><span class="line">  <span class="comment">// console.log(req.file);</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = router;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 <blockquote>
@@ -164,12 +138,7 @@
 <li>cb(null, ‘public&#x2F;images&#x2F;‘); 这个是将文件保存到public&#x2F;images&#x2F;目录下</li>
 <li>upload.single(‘avatar’)是前端传过来的avatar字段名，这个字段名在前端的name属性中定义的</li>
 </ol>
-<blockquote>
-<ol start="4">
-<li>解决跨域</li>
-</ol>
-</blockquote>
-<p>安装cors</p>
+<h4 id="4-解决跨域"><a href="#4-解决跨域" class="headerlink" title="4. 解决跨域"></a>4. 解决跨域</h4><p>安装cors</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install cors -S</span><br></pre></td></tr></table></figure>
 
 <p>在app.js中添加</p>
