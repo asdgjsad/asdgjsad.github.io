@@ -423,8 +423,8 @@ window.onload = function () {
 let time = setTimeout(() => {
   console.log('页面加载超时，请检查网络连接！')
   document.body.style.overflow = 'auto';
-  loading.style.height = '5vh'
-  loading.style.backgroundColor = 'rgba(0,0,0,0)'
+  loading.style.height = '4vh'
+  loading.style.backgroundColor = 'rgba(0,0,0,0.3)'
   document.documentElement.style.setProperty('--fontSize', '16px');
   document.documentElement.style.setProperty('--size', '15px');
-}, 5000)
+}, 1000)

@@ -27,7 +27,7 @@
 <meta property="og:description" content="获取dom节点尺寸123456var omw&#x3D;document.querySelector(&#x27;#box&#x27;)&#x2F;&#x2F; 获取宽高console.log(omw.offsetWidth,omw.offsetHeight)&#x2F;&#x2F; 获取宽高（不计算边框）console.log(omw.clientWidth,omw.clientHeight)  获取dom节点偏移量1234var a&#x3D;docu">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-08T00:53:28.145Z">
-<meta property="article:modified_time" content="2024-03-11T13:58:50.049Z">
+<meta property="article:modified_time" content="2024-03-12T13:39:21.899Z">
 <meta property="article:author" content="小哲">
 <meta property="article:tag" content="js">
 <meta name="twitter:card" content="summary">
@@ -63,7 +63,7 @@
 </div>
 <div class="widgets">
 
-<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96dom%E8%8A%82%E7%82%B9%E5%B0%BA%E5%AF%B8"><span class="toc-text">获取dom节点尺寸</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96dom%E8%8A%82%E7%82%B9%E5%81%8F%E7%A7%BB%E9%87%8F"><span class="toc-text">获取dom节点偏移量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%8F%AF%E8%A7%86%E7%AA%97%E5%8F%A3%E5%B0%BA%E5%AF%B8"><span class="toc-text">获取可视窗口尺寸</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BA%8B%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-text">基本事件类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E9%BC%A0%E6%A0%87%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1%EF%BC%88event%EF%BC%89"><span class="toc-text">常用鼠标事件对象（event）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%BB%E6%AD%A2%E4%BA%8B%E4%BB%B6%E4%BC%A0%E6%92%AD"><span class="toc-text">阻止事件传播</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">正则表达式</span></a></li></ol></div></div></widget>
+<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96dom%E8%8A%82%E7%82%B9%E5%B0%BA%E5%AF%B8"><span class="toc-text">获取dom节点尺寸</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96dom%E8%8A%82%E7%82%B9%E5%81%8F%E7%A7%BB%E9%87%8F"><span class="toc-text">获取dom节点偏移量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%8F%AF%E8%A7%86%E7%AA%97%E5%8F%A3%E5%B0%BA%E5%AF%B8"><span class="toc-text">获取可视窗口尺寸</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BA%8B%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-text">基本事件类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E9%BC%A0%E6%A0%87%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1%EF%BC%88event%EF%BC%89"><span class="toc-text">常用鼠标事件对象（event）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%BB%E6%AD%A2%E4%BA%8B%E4%BB%B6%E4%BC%A0%E6%92%AD"><span class="toc-text">阻止事件传播</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#this%E6%8C%87%E5%90%91%E9%97%AE%E9%A2%98"><span class="toc-text">this指向问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-text">继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E6%96%B9%E6%B3%95"><span class="toc-text">数学方法</span></a></li></ol></div></div></widget>
 
 
 
@@ -85,7 +85,7 @@
     
 <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%89%8D%E7%AB%AF3%E5%A4%A7%E4%BB%B6/">前端3大件</a></div>
-<div class="flex-row" id="post-meta"><span class="text created"><time datetime="2024-03-08T00:53:28.145Z">2024-03-08</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-03-11T13:58:50.049Z">2024-03-11</time></span></div></div>
+<div class="flex-row" id="post-meta"><span class="text created"><time datetime="2024-03-08T00:53:28.145Z">2024-03-08</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-03-12T13:39:21.899Z">2024-03-12</time></span></div></div>
 </div>
 
     
@@ -153,14 +153,8 @@
 <p>限定符</p>
 </blockquote>
 <ol>
-<li><ul>
-<li>0~多次</li>
-</ul>
-</li>
-<li><ul>
-<li>1~多次</li>
-</ul>
-</li>
+<li>* 0~多次</li>
+<li>+ 1~多次</li>
 <li>? 0~1</li>
 <li>{n} 限定n次,必须连续</li>
 <li>{n,} &gt;&#x3D;n</li>
@@ -182,6 +176,57 @@
 </li>
 <li><p>贪婪 可以加个？，变成非贪婪</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg1=<span class="regexp">/\d&#123;1,4&#125;/</span>      <span class="comment">//贪婪</span></span><br><span class="line"><span class="keyword">var</span> reg2=<span class="regexp">/\d&#123;1,4&#125;?/</span>     <span class="comment">//非贪婪</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(reg1.<span class="title function_">exec</span>(<span class="string">&#x27;ab1234d&#x27;</span>)[<span class="number">0</span>])</span><br><span class="line"><span class="comment">// 1234</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(reg2.<span class="title function_">exec</span>(<span class="string">&#x27;ab1234d&#x27;</span>)[<span class="number">0</span>])</span><br><span class="line"><span class="comment">// 1</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="this指向问题"><a href="#this指向问题" class="headerlink" title="this指向问题"></a>this指向问题</h2><ol>
+<li><p>call</p>
+</li>
+<li><p>apply</p>
+</li>
+<li><p>bind</p>
+<p>call  与 apply都会自动执行函数，区别：传入参数的形式不同</p>
+<p>bind不会自动执行函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">obj1=&#123;</span><br><span class="line">    <span class="attr">name</span>:<span class="string">&#x27;obj1&#x27;</span>,</span><br><span class="line">    <span class="attr">getName</span>:<span class="keyword">function</span>(<span class="params">a,b,c</span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;getName1&#x27;</span>,<span class="variable language_">this</span>.<span class="property">name</span>)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;参数&#x27;</span>,a,b,c)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj2=&#123;</span><br><span class="line">    <span class="attr">name</span>:<span class="string">&#x27;obj2&#x27;</span>,</span><br><span class="line">    <span class="attr">getName</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;getName2&#x27;</span>,<span class="variable language_">this</span>.<span class="property">name</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj1.<span class="property">getName</span>.<span class="title function_">call</span>(obj2,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="comment">// getName1 obj2</span></span><br><span class="line"><span class="comment">// 参数 1 2 3</span></span><br><span class="line"></span><br><span class="line">obj1.<span class="property">getName</span>.<span class="title function_">apply</span>(obj2,[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line"><span class="comment">// getName1 obj2</span></span><br><span class="line"><span class="comment">// 参数 1 2 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fun= obj1.<span class="property">getName</span>.<span class="title function_">bind</span>(obj2,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="title function_">fun</span>()</span><br><span class="line"><span class="comment">// getName1 obj2</span></span><br><span class="line"><span class="comment">// 参数 1 2 3</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><blockquote>
+<p>1</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name,age</span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">myname</span>=name</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">myage</span>=age</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">mysay</span>=<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello&#x27;</span>,<span class="variable language_">this</span>.<span class="property">myname</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Student</span>(<span class="params">name,age,grade</span>)&#123;</span><br><span class="line">        <span class="comment">// 继承</span></span><br><span class="line">    <span class="title class_">Person</span>.<span class="title function_">apply</span>(<span class="variable language_">this</span>,[name,age])</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">grade</span>=grade</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 原型的继承</span></span><br><span class="line"><span class="title class_">Student</span>.<span class="property"><span class="keyword">prototype</span></span>=<span class="keyword">new</span> <span class="title class_">Person</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> stu=<span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&#x27;pig&#x27;</span>,<span class="number">14</span>,<span class="number">100</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(stu)</span><br><span class="line"><span class="comment">// &#123;myname: &#x27;pig&#x27;, myage: 14, grade: 100&#125;</span></span><br><span class="line"></span><br><span class="line">stu.<span class="title function_">mysay</span>()</span><br><span class="line"><span class="comment">// hello pig</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">name, age</span>)&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">myname</span> = name</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">age</span> = age</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">mysay</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello&#x27;</span>,<span class="variable language_">this</span>.<span class="property">myname</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Person</span>&#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">name, age, grade</span>)&#123;</span><br><span class="line">        <span class="variable language_">super</span>(name, age)</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">grade</span> = grade</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> stu = <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&#x27;xz&#x27;</span>,<span class="number">18</span>,<span class="number">99</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(stu)</span><br><span class="line"><span class="comment">// &#123;myname: &#x27;xz&#x27;, age: 18, grade: 99&#125;</span></span><br><span class="line"></span><br><span class="line">stu.<span class="title function_">mysay</span>()</span><br><span class="line"><span class="comment">// hello xz</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="数学方法"><a href="#数学方法" class="headerlink" title="数学方法"></a>数学方法</h2><ol>
+<li><pre><code class="js">var num=124.2361234
+       
+// 指定保留几位小数,能够四舍五入
+console.log(num.toFixed(3))
+// 124.236
+</code></pre>
+</li>
+<li><p>Math.random() 随机数</p>
+</li>
+<li><p>Math.round() 四舍五入</p>
+</li>
+<li><p>Math.ceil() 向上取整</p>
+</li>
+<li><p>Math.floor() 向下取整</p>
+</li>
+<li><p>Math.abs() 绝对值</p>
+</li>
+<li><p>Math.sqrt() 平方根</p>
+</li>
+<li><p>Math.pow(2,4) 2的4次方 &#x3D; 16</p>
+</li>
+<li><p>Math.max(10,11,20,1,2,4) 取最大</p>
+</li>
+<li><p>Math.min(10,11,20,1,2,4) 取最小</p>
+</li>
+<li><p>Math.PI</p>
+</li>
 </ol>
 
 <div class="article-footer fs14">
