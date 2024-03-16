@@ -16,25 +16,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
   
-  <title>butterfly的安装使用与导航栏基础 - lazychild's Blog</title>
+  <title>MongoDB的安装与使用 - lazychild's Blog</title>
 
   
-    <meta name="description" content="首先安装butterfly主题在你的根目录下执行 1git clone -b master https:&#x2F;&#x2F;github.com&#x2F;jerryc127&#x2F;hexo-theme-butterfly.git themes&#x2F;butterfly 应用butterfly主题找到你hexo的_config.yml文件，更改配置 1theme: butterfly 可能出现的问题(安装插件)如果你沒有 pug 以及">
+    <meta name="description" content="安装下载官网（社区版）：Download MongoDB Community Server | MongoDB   根据自己的操作系统下载即可 配置环境变量（方便后续的启动）找到系统环境变量的编辑界面   添加自己下载好的mongodb的bin路径即可  最后进行测试，输入mongod，没有报错说明配置成功（这个命令主要用来启动mongodb）  启动mongo服务在启动之前必须配置mongo服务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="butterfly的安装使用与导航栏基础">
-<meta property="og:url" content="https://www.lazychild.fun/2024/02/01/3/index.html">
+<meta property="og:title" content="MongoDB的安装与使用">
+<meta property="og:url" content="https://www.lazychild.fun/2024/03/16/53/index.html">
 <meta property="og:site_name" content="lazychild&#39;s Blog">
-<meta property="og:description" content="首先安装butterfly主题在你的根目录下执行 1git clone -b master https:&#x2F;&#x2F;github.com&#x2F;jerryc127&#x2F;hexo-theme-butterfly.git themes&#x2F;butterfly 应用butterfly主题找到你hexo的_config.yml文件，更改配置 1theme: butterfly 可能出现的问题(安装插件)如果你沒有 pug 以及">
+<meta property="og:description" content="安装下载官网（社区版）：Download MongoDB Community Server | MongoDB   根据自己的操作系统下载即可 配置环境变量（方便后续的启动）找到系统环境变量的编辑界面   添加自己下载好的mongodb的bin路径即可  最后进行测试，输入mongod，没有报错说明配置成功（这个命令主要用来启动mongodb）  启动mongo服务在启动之前必须配置mongo服务">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-02-01T10:09:18.158Z">
-<meta property="article:modified_time" content="2024-02-01T07:20:08.820Z">
+<meta property="og:image" content="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/uTools/1710593666315.png">
+<meta property="og:image" content="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/uTools/1710593796314.png">
+<meta property="og:image" content="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/uTools/1710594102321.png">
+<meta property="og:image" content="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/uTools/1710594163315.png">
+<meta property="og:image" content="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/uTools/1710594217314.png">
+<meta property="og:image" content="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/uTools/1710594263315.png">
+<meta property="article:published_time" content="2024-03-16T12:28:35.262Z">
+<meta property="article:modified_time" content="2024-03-16T14:30:37.392Z">
 <meta property="article:author" content="小哲">
-<meta property="article:tag" content="butterfly">
+<meta property="article:tag" content="node">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/uTools/1710593666315.png">
   
   
   
-  <meta name="keywords" content="butterfly">
+  <meta name="keywords" content="node">
 
   <!-- feed -->
   
@@ -63,7 +70,7 @@
 </div>
 <div class="widgets">
 
-<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A6%96%E5%85%88%E5%AE%89%E8%A3%85butterfly%E4%B8%BB%E9%A2%98"><span class="toc-text">首先安装butterfly主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8butterfly%E4%B8%BB%E9%A2%98"><span class="toc-text">应用butterfly主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E8%83%BD%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98-%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="toc-text">可能出现的问题(安装插件)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#butterfly%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-text">butterfly导航栏的配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%96%B0%E7%9A%84%E9%A1%B5%E9%9D%A2"><span class="toc-text">生成新的页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E6%96%B0%E9%A1%B5%E9%9D%A2%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-text">注意新页面的配置</span></a></li></ol></div></div></widget>
+<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%EF%BC%88%E6%96%B9%E4%BE%BF%E5%90%8E%E7%BB%AD%E7%9A%84%E5%90%AF%E5%8A%A8%EF%BC%89"><span class="toc-text">配置环境变量（方便后续的启动）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8mongo%E6%9C%8D%E5%8A%A1"><span class="toc-text">启动mongo服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#node%E8%BF%9E%E6%8E%A5mongoDB"><span class="toc-text">node连接mongoDB</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%A8%A1%E5%9D%97%E4%B8%8B%E8%BD%BD"><span class="toc-text">1. 模块下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%BF%9E%E6%8E%A5"><span class="toc-text">2. 连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B%EF%BC%88%E9%9C%80%E8%A6%81%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%A1%A8%EF%BC%89"><span class="toc-text">3. 创建模型（需要连接的表）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2"><span class="toc-text">查询</span></a></li></ol></div></div></widget>
 
 
 
@@ -71,7 +78,7 @@
 
 
 
-<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2024/03/16/53/"><span class="title">MongoDB的安装与使用</span></a><a class="item title" href="/2024/03/14/52/"><span class="title">js基础篇3</span></a><a class="item title" href="/2024/03/08/51/"><span class="title">js基础篇2</span></a><a class="item title" href="/2024/03/07/50/"><span class="title">处理yaml文件</span></a><a class="item title" href="/2024/03/05/49/"><span class="title">js基础篇1</span></a><a class="item title" href="/2024/02/22/48/"><span class="title">文件上传完整流程</span></a><a class="item title" href="/2024/02/20/47/"><span class="title">解决vite+vue中别名问题</span></a><a class="item title" href="/2024/02/15/46/"><span class="title">npm创建vue项目</span></a><a class="item title" href="/2024/02/01/45/"><span class="title">主题推荐-stellar</span></a><a class="item title" href="/2024/02/01/44/"><span class="title">css中变量的使用</span></a></div></widget>
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title active" href="/2024/03/16/53/"><span class="title">MongoDB的安装与使用</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="item title" href="/2024/03/14/52/"><span class="title">js基础篇3</span></a><a class="item title" href="/2024/03/08/51/"><span class="title">js基础篇2</span></a><a class="item title" href="/2024/03/07/50/"><span class="title">处理yaml文件</span></a><a class="item title" href="/2024/03/05/49/"><span class="title">js基础篇1</span></a><a class="item title" href="/2024/02/22/48/"><span class="title">文件上传完整流程</span></a><a class="item title" href="/2024/02/20/47/"><span class="title">解决vite+vue中别名问题</span></a><a class="item title" href="/2024/02/15/46/"><span class="title">npm创建vue项目</span></a><a class="item title" href="/2024/02/01/45/"><span class="title">主题推荐-stellar</span></a><a class="item title" href="/2024/02/01/44/"><span class="title">css中变量的使用</span></a></div></widget>
 </div>
 
 </div></aside><div class="l_main" id="main">
@@ -84,30 +91,55 @@
   <div class="content">
     
 <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
-<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E9%AD%94%E6%94%B9/">魔改</a></div>
-<div class="flex-row" id="post-meta"><span class="text created"><time datetime="2024-02-01T10:09:18.158Z">2024-02-01</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-02-01T07:20:08.820Z">2024-02-01</time></span></div></div>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a></div>
+<div class="flex-row" id="post-meta"><span class="text created"><time datetime="2024-03-16T12:28:35.262Z">2024-03-16</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-03-16T14:30:37.392Z">2024-03-16</time></span></div></div>
 </div>
 
     
     <div class="bottom">
       <div class="text-area">
-        <h1 class="text title"><span>butterfly的安装使用与导航栏基础</span></h1>
+        <h1 class="text title"><span>MongoDB的安装与使用</span></h1>
       </div>
     </div>
     
   </div>
-  </div><article class="md-text content"><h2 id="首先安装butterfly主题"><a href="#首先安装butterfly主题" class="headerlink" title="首先安装butterfly主题"></a>首先安装butterfly主题</h2><p>在你的根目录下执行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure>
-<h2 id="应用butterfly主题"><a href="#应用butterfly主题" class="headerlink" title="应用butterfly主题"></a>应用butterfly主题</h2><p>找到你hexo的_config.yml文件，更改配置</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: butterfly</span><br></pre></td></tr></table></figure>
-<h2 id="可能出现的问题-安装插件"><a href="#可能出现的问题-安装插件" class="headerlink" title="可能出现的问题(安装插件)"></a>可能出现的问题(安装插件)</h2><p>如果你沒有 pug 以及 stylus 的渲染器，请下载安裝：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure>
-<h2 id="butterfly导航栏的配置"><a href="#butterfly导航栏的配置" class="headerlink" title="butterfly导航栏的配置"></a>butterfly导航栏的配置</h2><p>默认</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Home: / || fas fa-home</span><br><span class="line">Archives: /archives/ || fas fa-archive</span><br><span class="line">Tags: /tags/ || fas fa-tags</span><br><span class="line">Categories: /categories/ || fas fa-folder-open</span><br><span class="line">List||fas fa-list:</span><br><span class="line">  Music: /music/ || fas fa-music</span><br><span class="line">  Movie: /movies/ || fas fa-video</span><br><span class="line">Link: /link/ || fas fa-link</span><br><span class="line">About: /about/ || fas fa-heart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="生成新的页面"><a href="#生成新的页面" class="headerlink" title="生成新的页面"></a>生成新的页面</h2><p>默认安装完成后的butterfly缺少的许多页面，可以根据自己的需要生成<br>举个例子，假如我要生成Tags页面</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure>
-<h2 id="注意新页面的配置"><a href="#注意新页面的配置" class="headerlink" title="注意新页面的配置"></a>注意新页面的配置</h2><p>增加一个类型</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type: tags</span><br></pre></td></tr></table></figure>
+  </div><article class="md-text content"><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>下载官网（社区版）：<a target="_blank" rel="noopener" href="https://www.mongodb.com/try/download/community">Download MongoDB Community Server | MongoDB</a></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/uTools/1710593666315.png"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/uTools/1710593796314.png"></p>
+<p>根据自己的操作系统下载即可</p>
+<h2 id="配置环境变量（方便后续的启动）"><a href="#配置环境变量（方便后续的启动）" class="headerlink" title="配置环境变量（方便后续的启动）"></a>配置环境变量（方便后续的启动）</h2><p>找到系统环境变量的编辑界面</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/uTools/1710594102321.png"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/uTools/1710594163315.png"></p>
+<p>添加自己下载好的mongodb的bin路径即可</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/uTools/1710594217314.png"></p>
+<p>最后进行测试，输入mongod，没有报错说明配置成功（这个命令主要用来启动mongodb）</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/uTools/1710594263315.png"></p>
+<h2 id="启动mongo服务"><a href="#启动mongo服务" class="headerlink" title="启动mongo服务"></a>启动mongo服务</h2><p>在启动之前必须配置mongo服务数据存放的文件夹，比如我在mongo安装的目录下，新建了一个db文件夹，用来存放数据库内容：D:\Database\MongoDB\db，</p>
+<p>启动方法</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod --dbpath D:\Database\MongoDB\db</span><br></pre></td></tr></table></figure>
+
+<p>启动后不能关闭终端，不然会中断mongo的服务</p>
+<h2 id="node连接mongoDB"><a href="#node连接mongoDB" class="headerlink" title="node连接mongoDB"></a>node连接mongoDB</h2><blockquote>
+<p>这里用express框架进行演示</p>
+</blockquote>
+<h4 id="1-模块下载"><a href="#1-模块下载" class="headerlink" title="1. 模块下载"></a>1. 模块下载</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i mongoose</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-连接"><a href="#2-连接" class="headerlink" title="2. 连接"></a>2. 连接</h4><p>建议放在单独的一个文件中，方便管理</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mongoose = <span class="built_in">require</span>(<span class="string">&#x27;mongoose&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> dbURL = <span class="string">&#x27;mongodb://127.0.0.1:27017/managerCool&#x27;</span>;</span><br><span class="line"><span class="comment">// 连接数据库</span></span><br><span class="line">mongoose.<span class="title function_">connect</span>(dbURL);</span><br><span class="line"><span class="comment">// 绑定数据库连接监听</span></span><br><span class="line">mongoose.<span class="property">connection</span>.<span class="title function_">on</span>(<span class="string">&quot;open&quot;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        cosnole.<span class="title function_">log</span>(<span class="string">&quot;连接失败...&quot;</span>, err);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;mongodb连接成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>在入口文件中进行引入即可</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 连接数据库</span></span><br><span class="line"><span class="built_in">require</span>(<span class="string">&#x27;../connect_db/mongo&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-创建模型（需要连接的表）"><a href="#3-创建模型（需要连接的表）" class="headerlink" title="3. 创建模型（需要连接的表）"></a>3. 创建模型（需要连接的表）</h4><p>上述步骤已经成功连接到了具体的数据库了，而大家都知道库中是不是有具体的表，这是mysql的称呼，在mongodb中称为模型，建议将所有的创建模型的文件单独存放到一个文件夹中</p>
+<blockquote>
+<p>比如我要连接introduction的模型</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mongoose = <span class="built_in">require</span>(<span class="string">&#x27;mongoose&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">IntroductionType</span> = &#123;</span><br><span class="line">    <span class="attr">stu_value</span>:<span class="title class_">String</span>,</span><br><span class="line">    <span class="attr">mony_value</span>:<span class="title class_">String</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">IntroductionModel</span> = mongoose.<span class="title function_">model</span>(<span class="string">&#x27;introduction&#x27;</span>, <span class="keyword">new</span> mongoose.<span class="title class_">Schema</span>(<span class="title class_">IntroductionType</span>))</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title class_">IntroductionModel</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><blockquote>
+<p>比如我要查询introduction中的所有内容</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">IntroductionModel</span> = <span class="built_in">require</span>(<span class="string">&#x27;../model/IntroductionModel&#x27;</span>)</span><br><span class="line"></span><br><span class="line">router.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="keyword">function</span> (<span class="params">req, res, next</span>) &#123;</span><br><span class="line">    <span class="title class_">IntroductionModel</span>.<span class="title function_">find</span>().<span class="title function_">then</span>(<span class="function"><span class="params">data</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(data)</span><br><span class="line">    &#125;)</span><br><span class="line">    res.<span class="title function_">send</span>(&#123;</span><br><span class="line">        <span class="attr">ok</span>: <span class="number">1</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <div class="article-footer fs14">
     <section id="license">
@@ -117,7 +149,7 @@
     </section>
     </div>
 </article>
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2024/02/01/4/">butterfly关于logo图标与头像的增加</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2024/02/01/2/">如何部署至Gitee</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2024/03/14/52/">js基础篇3</a></div></section></div>
 
 
 
