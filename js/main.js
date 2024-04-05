@@ -396,35 +396,3 @@ if (stellar.plugins.copycode) {
 
 
 // 自定义
-// 创建一个加载动画dom
-const str = 'LOADING' //加载文字
-const loading = document.createElement('div');
-loading.className = 'loader';
-document.body.appendChild(loading);
-for (let i = 0; i < str.length; i++) {
-  var span = document.createElement('span');
-  span.innerText = str[i];
-  loading.appendChild(span);
-}
-for (let i = 0; i < 3; i++) {
-  var span = document.createElement('span');
-  loading.appendChild(span);
-}
-// 隐藏滚动条
-document.body.style.overflow = 'hidden';
-
-// 监听页面加载完成
-window.onload = function () {
-  loading.remove();
-  document.body.style.overflow = 'auto';
-  clearTimeout(time);
-}
-
-let time = setTimeout(() => {
-  console.log('页面加载超时，请检查网络连接！')
-  document.body.style.overflow = 'auto';
-  loading.style.height = '4vh'
-  loading.style.backgroundColor = 'rgba(0,0,0,0.3)'
-  document.documentElement.style.setProperty('--fontSize', '16px');
-  document.documentElement.style.setProperty('--size', '15px');
-}, 1000)

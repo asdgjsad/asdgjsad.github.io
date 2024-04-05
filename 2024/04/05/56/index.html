@@ -1,0 +1,382 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4" theme-name="Stellar" theme-version="1.26.4">
+  
+  <meta name="generator" content="Hexo 7.1.1">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>vue3基础知识1 - lazychild's Blog</title>
+
+  
+    <meta name="description" content="toRef与toRefs使用它，消费者组件可以解构&#x2F;展开返回的对象而不会失去响应性： 123456789101112131415import &#123; reactive,toRefs,toRef &#125; from &#x27;vue&#x27;const person &#x3D; reactive(&#123;  name: &#x27;张三&#x27;,  age: 18&#125;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue3基础知识1">
+<meta property="og:url" content="https://www.lazychild.fun/2024/04/05/56/index.html">
+<meta property="og:site_name" content="lazychild&#39;s Blog">
+<meta property="og:description" content="toRef与toRefs使用它，消费者组件可以解构&#x2F;展开返回的对象而不会失去响应性： 123456789101112131415import &#123; reactive,toRefs,toRef &#125; from &#x27;vue&#x27;const person &#x3D; reactive(&#123;  name: &#x27;张三&#x27;,  age: 18&#125;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-05T04:50:27.415Z">
+<meta property="article:modified_time" content="2024-04-05T11:41:34.505Z">
+<meta property="article:author" content="小哲">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta name="keywords" content="vue">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.26.4">
+
+  
+
+  
+
+  
+  
+</head>
+<body>
+
+<div class="l_body content tech" id="start" layout="post" ><aside class="l_left"><div class="sidebar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/tou.gif" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">爱敲代码的小哲</div><div class="sub normal cap">回不去的何止时间</div><div class="sub hover cap" style="opacity:0"> 还有曾经的意气风发</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" class="icon search-icon" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item" title="网站推荐" target="_blank" rel="noopener" href="https://xiao-zhe-is-not-lazy.gitee.io/website-collection" style="color:#1BCDFC"><svg t="1706977924264" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13523" width="200" height="200"><path d="M871.706 604.383a28.798 28.798 0 0 0-0.424-2.848c-10.778-53.757-30.987-96.52-60.068-127.102-32.134-33.794-75.04-51.656-124.078-51.656h-81.33V275.923c0-32.759-7.763-61.089-22.449-81.929-18.111-25.701-45.438-39.286-79.025-39.286-32.289 0-59.422 12.159-80.643 36.14-15.932 18.003-28.464 42.428-39.44 76.865-0.122 0.384-0.237 0.77-0.342 1.158-0.104 0.378-10.524 38.298-26.585 77.728-26.383 64.768-43.714 75-46.197 76.177h-42.242c-2.111 0-4.164 0.241-6.146 0.671a28.941 28.941 0 0 0-6.146-0.671 28.726 28.726 0 0 0-16.068 4.887 114.914 114.914 0 0 0-27.945-3.444c-63.359 0-114.721 51.362-114.721 114.721v304.481c0 63.359 51.363 114.721 114.721 114.721 12.383 0 24.297-1.986 35.47-5.616 2.7 0.835 5.568 1.287 8.542 1.287 2.236 0 4.404-0.279 6.494-0.76 2.09 0.481 4.257 0.76 6.494 0.76h433.431c62.209 0 125.171-30.111 160.402-76.711 25.787-34.109 34.238-74.412 23.931-113.787l-15.636-158.932z m-54.338 237.91c-23.949 31.676-70.974 53.8-114.359 53.8H314.484c8.172-15.777 12.816-33.677 12.816-52.671V538.941c0-21.349-5.851-41.324-16.008-58.443h0.655c35.22 0 65.717-33.439 95.976-105.232 17.999-42.705 29.879-84.74 31.493-90.56 19.211-59.972 39.851-72.277 64.916-72.277 29.032 0 43.753 21.362 43.753 63.494v175.715c0 15.94 12.922 28.861 28.861 28.861h110.191c82.849 0 114.952 70.898 127.27 131.001l15.73 159.878a28.91 28.91 0 0 0 0.954 5.042c6.525 23.035 1.908 45.197-13.723 65.873zM931.512 159.915a14.43 14.43 0 0 0-11.649-9.821l-74.355-10.804-33.253-67.377a14.431 14.431 0 0 0-25.88 0l-33.253 67.377-74.355 10.804a14.43 14.43 0 0 0-7.997 24.614l53.804 52.446-12.701 74.055a14.429 14.429 0 0 0 20.937 15.212l66.505-34.964 66.505 34.964a14.414 14.414 0 0 0 6.714 1.657 14.43 14.43 0 0 0 14.224-16.87l-12.701-74.055 53.804-52.446a14.43 14.43 0 0 0 3.651-14.792z" fill="#E75934" p-id="13524"></path></svg></a><a class="nav-item" title="动态" href="/dynamic/" style="color:#3DC550"><svg t="1706977986934" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15519" width="200" height="200"><path d="M689.2 339.88c39.864 16.296 164.832 48.136 193.768 31.792 33.248-19.104-61.584-83.624-64.568-112.592-0.76-17.512 8.656-75.344-9.2-83.848-26.744-13.272-69.256 6.168-94.968 20.696-42.888 24.552-69.976-53.44-109.08-24.504-20.768 16.944 50.152 154.656 84.048 168.456z" fill="#FCE000" p-id="15520"></path><path d="M339.296 328.48C376.8 287.456 462.352 57.768 513.912 56.592c49.224-1.168 121.88 194.536 154.696 261.336 69.144 75 319.928 28.128 321.104 107.816 1.168 60.936-189.848 169.928-209.776 219.144-8.2 21.096 0 43.36 3.512 65.624 7.032 41.016 64.456 230.864 12.888 251.96-80.864 32.816-194.536-94.928-283.6-113.672-92.584-18.752-226.176 165.24-304.696 119.536-65.624-38.672 70.312-260.168 26.952-331.648-32.816-52.736-219.144-152.352-199.224-220.32C60.384 328.48 293.592 377.696 339.296 328.48z" fill="#5E5E5E" p-id="15521"></path><path d="M358.4 348.16c32.768-35.84 107.52-236.544 152.576-237.568 43.008-1.024 106.496 169.984 135.168 228.352 60.416 65.536 279.552 24.576 280.576 94.208 1.024 53.248-165.888 148.48-183.296 191.488-7.168 18.432 0 37.888 3.072 57.344 6.144 35.84 56.32 201.728 11.264 220.16-70.656 28.672-169.984-82.944-247.808-99.328-80.896-16.384-197.632 144.384-266.24 104.448-57.344-33.792 61.44-227.328 23.552-289.792-28.672-46.08-191.488-133.12-174.08-192.512 21.504-76.8 225.28-33.792 265.216-76.8z" fill="#FCE000" p-id="15522"></path><path d="M470.352 465.864c12.368-13.528 40.576-89.272 57.584-89.656 16.232-0.384 40.192 64.152 51.008 86.176 22.8 24.736 105.504 9.272 105.888 35.552 0.384 20.096-62.608 56.032-69.176 72.264-2.704 6.96 0 14.296 1.16 21.64 2.32 13.528 21.256 76.128 4.248 83.088-26.664 10.824-64.152-31.304-93.52-37.488-30.528-6.184-74.584 54.488-100.48 39.416-21.64-12.752 23.184-85.792 8.888-109.368-10.824-17.392-72.264-50.24-65.696-72.656 8.12-28.968 85.024-12.736 100.096-28.968z" fill="#606060" p-id="15523"></path></svg></a><a class="nav-item" title="关于站长" href="/about/" style="color:#3DC550"><svg t="1706978133829" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17375" width="200" height="200"><path d="M576.8704 555.6736m-361.6768 0a361.6768 361.6768 0 1 0 723.3536 0 361.6768 361.6768 0 1 0-723.3536 0Z" fill="#56E5BE" p-id="17376"></path><path d="M613.2224 592.0256m-325.3248 0a325.3248 325.3248 0 1 0 650.6496 0 325.3248 325.3248 0 1 0-650.6496 0Z" fill="#50DDB8" p-id="17377"></path><path d="M650.3936 618.5472m-282.88 0a282.88 282.88 0 1 0 565.76 0 282.88 282.88 0 1 0-565.76 0Z" fill="#42D3AD" p-id="17378"></path><path d="M510.976 921.9072c-231.3728 0-419.584-188.2112-419.584-419.584 0-231.3728 188.2112-419.584 419.584-419.584s419.584 188.2112 419.584 419.584c0.0512 231.3728-188.2112 419.584-419.584 419.584z m0-777.728c-197.4784 0-358.144 160.6656-358.144 358.144s160.6656 358.144 358.144 358.144 358.144-160.6656 358.144-358.144-160.6144-358.144-358.144-358.144z" fill="#2E3138" p-id="17379"></path><path d="M394.1376 575.0272c-16.9472 0-30.72-13.7728-30.72-30.72V460.288c0-16.9472 13.7728-30.72 30.72-30.72s30.72 13.7728 30.72 30.72v84.0192c0 16.9984-13.7728 30.72-30.72 30.72zM640.6656 583.424c-6.5536 0-13.2096-2.0992-18.7904-6.4512l-65.8944-51.0464a30.55616 30.55616 0 0 1-11.8784-24.32c0-9.5232 4.4032-18.4832 11.9296-24.2688l64.256-49.7152a30.6944 30.6944 0 0 1 43.1104 5.5296 30.6944 30.6944 0 0 1-5.5296 43.1104l-32.8704 25.3952 34.56 26.7776c13.4144 10.3936 15.872 29.696 5.4784 43.1104a31.0016 31.0016 0 0 1-24.3712 11.8784z" fill="#2E3138" p-id="17380"></path></svg></a><a class="nav-item" title="官方文档" target="_blank" rel="noopener" href="https://xaoxuu.com/wiki/stellar/#start" style="color:#3DC550"><svg t="1706978948097" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="20251" width="200" height="200"><path d="M770 512.62q0 49.77-4 99.46a167 167 0 0 1-153.15 153.19q-49.51 4-99.17 4-49.92 0-99.76-4a167 167 0 0 1-153.19-153.19q-4-49.65-4-99.46t4-99.47A167 167 0 0 1 413.92 260q49.65-4 99.46-4h73.44a96.88 96.88 0 0 1 66 26l86.34 80.45A96.85 96.85 0 0 1 770 433.28z" fill="#CAE0FF" p-id="20252"></path><path d="M511.56 888c-45.58 0-91.72-1.84-137.15-5.47a254.11 254.11 0 0 1-233.08-233.06c-3.63-45.43-5.47-91.58-5.47-137.15s1.84-91.72 5.47-137.15a254.13 254.13 0 0 1 233.08-233.09c45.43-3.63 91.58-5.47 137.15-5.47h99.64a158.42 158.42 0 0 1 108.32 42.64l117.16 109.16a159.4 159.4 0 0 1 50.58 116.26v107.65c0 45.57-1.84 91.72-5.47 137.15a254.11 254.11 0 0 1-233.08 233.08C603.42 886.17 557.41 888 512 888z m0-696.41c-44.12 0-88.79 1.79-132.77 5.3a199.12 199.12 0 0 0-182.64 182.66c-3.51 44-5.29 88.65-5.29 132.77s1.78 88.79 5.29 132.77a199.12 199.12 0 0 0 182.64 182.64c44 3.51 88.65 5.29 132.76 5.29h0.45c44 0 88.53-1.79 132.37-5.29A199.12 199.12 0 0 0 827 645.09c3.51-44 5.29-88.65 5.29-132.77V404.67a104.23 104.23 0 0 0-33.07-76L682 219.49a103.62 103.62 0 0 0-70.83-27.88z" fill="#1A5F8E" p-id="20253"></path><path d="M692.8 683H328.85a27.5 27.5 0 0 1 0-55H692.8a27.5 27.5 0 0 1 0 55zM692.8 540.93H328.85a27.5 27.5 0 0 1 0-55H692.8a27.5 27.5 0 1 1 0 55zM590 398.86H328.71a27.5 27.5 0 1 1 0-55H590a27.5 27.5 0 0 1 0 55z" fill="#1A5F8E" p-id="20254"></path></svg></a></nav>
+</div>
+<div class="widgets">
+
+<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#toRef%E4%B8%8EtoRefs"><span class="toc-text">toRef与toRefs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#computed-%E5%87%BD%E6%95%B0"><span class="toc-text">computed()函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#watch-%E5%87%BD%E6%95%B0"><span class="toc-text">watch()函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#watchEffect-%E5%87%BD%E6%95%B0"><span class="toc-text">watchEffect()函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ref%E4%B8%8Edom%E7%BB%93%E6%9E%84%E7%9A%84%E8%81%94%E5%8A%A8"><span class="toc-text">ref与dom结构的联动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#defineProps"><span class="toc-text">defineProps()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%B7%AF%E7%94%B1"><span class="toc-text">基本路由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#query%E4%BC%A0%E5%8F%82"><span class="toc-text">query传参</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#params%E4%BC%A0%E5%8F%82"><span class="toc-text">params传参</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1props%E9%85%8D%E7%BD%AE"><span class="toc-text">路由props配置</span></a></li></ol></div></div></widget>
+
+
+
+
+
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2024/04/05/57/"><span class="title">vue3基础知识2</span></a><a class="item title active" href="/2024/04/05/56/"><span class="title">vue3基础知识1</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="item title" href="/2024/03/31/55/"><span class="title">md文件的解析、渲染与目录文件读取</span></a><a class="item title" href="/2024/03/16/53/"><span class="title">MongoDB的安装与使用</span></a><a class="item title" href="/2024/03/21/54/"><span class="title">js基础篇4</span></a><a class="item title" href="/2024/03/14/52/"><span class="title">js基础篇3</span></a><a class="item title" href="/2024/03/08/51/"><span class="title">js基础篇2</span></a><a class="item title" href="/2024/03/07/50/"><span class="title">处理yaml文件</span></a><a class="item title" href="/2024/03/05/49/"><span class="title">js基础篇1</span></a><a class="item title" href="/2024/02/22/48/"><span class="title">文件上传完整流程</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    
+<div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a></div>
+<div class="flex-row" id="post-meta"><span class="text created"><time datetime="2024-04-05T04:50:27.415Z">2024-04-05</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-04-05T11:41:34.505Z">2024-04-05</time></span></div></div>
+</div>
+
+    
+    <div class="bottom">
+      <div class="text-area">
+        <h1 class="text title"><span>vue3基础知识1</span></h1>
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="toRef与toRefs"><a href="#toRef与toRefs" class="headerlink" title="toRef与toRefs"></a>toRef与toRefs</h2><p>使用它，消费者组件可以解构&#x2F;展开返回的对象而不会失去响应性：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; reactive,toRefs,toRef &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">const</span> person = <span class="title function_">reactive</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;张三&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> cityObj = <span class="title function_">reactive</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;北京&#x27;</span>,</span><br><span class="line">  <span class="attr">id</span>: <span class="string">&#x27;asdasxzc&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 消费者组件可以解构/展开返回的对象而不会失去响应性</span></span><br><span class="line"><span class="keyword">let</span> &#123; name, age &#125; = <span class="title function_">toRefs</span>(person)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> city = <span class="title function_">toRef</span>(cityObj,<span class="string">&#x27;name&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="computed-函数"><a href="#computed-函数" class="headerlink" title="computed()函数"></a>computed()函数</h2><p>创建一个只读的计算属性 ref：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> count = <span class="title function_">ref</span>(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">const</span> plusOne = <span class="title function_">computed</span>(<span class="function">() =&gt;</span> count.<span class="property">value</span> + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(plusOne.<span class="property">value</span>) <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line">plusOne.<span class="property">value</span>++ <span class="comment">// 错误</span></span><br></pre></td></tr></table></figure>
+
+<p>创建一个可写的计算属性 ref：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> count = <span class="title function_">ref</span>(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">const</span> plusOne = <span class="title function_">computed</span>(&#123;</span><br><span class="line">  <span class="attr">get</span>: <span class="function">() =&gt;</span> count.<span class="property">value</span> + <span class="number">1</span>,</span><br><span class="line">  <span class="attr">set</span>: <span class="function">(<span class="params">val</span>) =&gt;</span> &#123;</span><br><span class="line">    count.<span class="property">value</span> = val - <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">plusOne.<span class="property">value</span> = <span class="number">1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(count.<span class="property">value</span>) <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="watch-函数"><a href="#watch-函数" class="headerlink" title="watch()函数"></a>watch()函数</h2><p>用于声明在数据更改时调用的侦听回调。</p>
+<ul>
+<li><p>**<code>immediate</code>**：在侦听器创建时立即触发回调。第一次调用时，旧值将为 <code>undefined</code>。</p>
+</li>
+<li><p>**<code>deep</code>**：如果源是对象或数组，则强制深度遍历源，以便在深度变更时触发回调。详见<a target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/essentials/watchers.html#deep-watchers">深层侦听器</a>。</p>
+</li>
+<li><p>**<code>flush</code>**：调整回调的刷新时机。详见<a target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/essentials/watchers.html#callback-flush-timing">回调的触发时机</a>及 <a target="_blank" rel="noopener" href="https://cn.vuejs.org/api/reactivity-core.html#watcheffect"><code>watchEffect()</code></a>。</p>
+</li>
+<li><p>**<code>onTrack / onTrigger</code>**：调试侦听器的依赖关系。详见<a target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/extras/reactivity-in-depth.html#watcher-debugging">侦听器调试</a>。</p>
+<p>监听ref数据时：</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = <span class="title function_">ref</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;张三&quot;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认是不会开启深度监听的，如果需要开启深度监听，需要在watch中传入deep参数</span></span><br><span class="line"><span class="comment">// deep: true</span></span><br><span class="line"><span class="title function_">watch</span>(person, <span class="function">(<span class="params">newVal, oldVal</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(newVal, oldVal)</span><br><span class="line">&#125;, &#123;</span><br><span class="line">  <span class="attr">deep</span>: <span class="literal">true</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<pre><code> 监听reactive数据时：
+</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = <span class="title function_">reactive</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;张三&quot;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认开启深度监听,并且无法修改</span></span><br><span class="line"><span class="title function_">watch</span>(person, <span class="function">(<span class="params">newValue, oldValue</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(newValue, oldValue)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>​	监听响应式对象中的单个属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = <span class="title function_">reactive</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;张三&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">18</span>,</span><br><span class="line">  <span class="attr">adress</span>: &#123;</span><br><span class="line">    <span class="attr">city</span>: <span class="string">&#x27;北京&#x27;</span>,</span><br><span class="line">    <span class="attr">street</span>: <span class="string">&#x27;北京路&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果要监听某个属性，可以使用getter函数</span></span><br><span class="line"><span class="comment">// 1.如果这个属性值是基本类型，只能写成getter函数</span></span><br><span class="line"><span class="title function_">watch</span>(<span class="function">()=&gt;</span>person.<span class="property">name</span>, <span class="function">(<span class="params">newVal, oldVal</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(newVal, oldVal)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">    2.如果这个属性值是对象，如果写成getter函数，</span></span><br><span class="line"><span class="comment">    那么就是监听的地址的变换，里面单个属性变化监听不到，但是可以开启deep，进行深度监听</span></span><br><span class="line"><span class="comment">    如果不写成函数，那么就是监听里面单个属性的变化，无法监听地址的变换</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="title function_">watch</span>(<span class="function">()=&gt;</span>person.<span class="property">adress</span>, <span class="function">(<span class="params">newVal, oldVal</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(newVal, oldVal)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>监听响应式对象中的单个属性:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果要监听多个属性，写成数组即可</span></span><br><span class="line"><span class="title function_">watch</span>([<span class="function">()=&gt;</span>person.<span class="property">name</span>, <span class="function">()=&gt;</span>person.<span class="property">adress</span>], <span class="function">(<span class="params">newVal, oldVal</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(newVal, oldVal)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="watchEffect-函数"><a href="#watchEffect-函数" class="headerlink" title="watchEffect()函数"></a>watchEffect()函数</h2><p>立即运行一个函数，同时响应式地追踪其依赖，并在依赖更改时重新执行。</p>
+<p>与watch的区别：watch需要指定数据源进行监听</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> height = <span class="title function_">ref</span>(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">let</span> weight = <span class="title function_">ref</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="title function_">watchEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span>(height.<span class="property">value</span> &gt; <span class="number">5</span> &amp;&amp; weight.<span class="property">value</span> &gt; <span class="number">10</span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;发送服务器消息&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="ref与dom结构的联动"><a href="#ref与dom结构的联动" class="headerlink" title="ref与dom结构的联动"></a>ref与dom结构的联动</h2><p>使用选项式 API，引用将被注册在组件的 <code>this.$refs</code> 对象里：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 存储为 <span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">p</span> --&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">p</span> <span class="attr">ref</span>=<span class="string">&quot;p&quot;</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>使用组合式 API，引用将存储在与名字匹配的 ref 里：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"><span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p = <span class="title function_">ref</span>()</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">ref</span>=<span class="string">&quot;p&quot;</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>用于组件时：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// test组件</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">   <span class="language-xml"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>我是一个组件<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="keyword">let</span> a = <span class="title function_">ref</span>(<span class="number">0</span>)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="keyword">let</span> b = <span class="title function_">ref</span>(<span class="number">1</span>)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="keyword">let</span> c = <span class="title function_">ref</span>(<span class="number">2</span>)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="title function_">defineExpose</span>(&#123;a,b,c&#125;)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;scss&quot;</span> <span class="attr">scoped</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;getDom&quot;</span>&gt;</span>获取dom<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">test</span> <span class="attr">ref</span>=<span class="string">&quot;tes&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">test</span>&gt;</span></span></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> test <span class="keyword">from</span> <span class="string">&#x27;./components/test.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> tes = <span class="title function_">ref</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果想要获取组件里面的变量，需要组件自行导出</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getDom</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(tes.<span class="property">value</span>.<span class="property">a</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(tes.<span class="property">value</span>.<span class="property">b</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(tes.<span class="property">value</span>.<span class="property">c</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="defineProps"><a href="#defineProps" class="headerlink" title="defineProps()"></a>defineProps()</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 类型限制+默认值+是否必传</span></span><br><span class="line"><span class="keyword">let</span> props = <span class="title function_">withDefaults</span>(defineProps&lt;&#123;list?:<span class="title class_">PersonList</span>&#125;&gt;(),&#123;</span><br><span class="line">   <span class="comment">// 默认值</span></span><br><span class="line">   <span class="attr">list</span>:<span class="function">()=&gt;</span>[&#123;<span class="attr">id</span>:<span class="string">&#x27;asdasdzxc&#x27;</span>,<span class="attr">name</span>:<span class="string">&#x27;海尔&#x27;</span>,<span class="attr">age</span>:<span class="number">22</span>&#125;]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="基本路由"><a href="#基本路由" class="headerlink" title="基本路由"></a>基本路由</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createRouter, createWebHistory &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Home</span> <span class="keyword">from</span> <span class="string">&#x27;@/views/Home.vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">News</span> <span class="keyword">from</span> <span class="string">&#x27;@/views/News.vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">About</span> <span class="keyword">from</span> <span class="string">&#x27;@/views/About.vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">NewsDetails</span> <span class="keyword">from</span> <span class="string">&#x27;@/views/NewsDetails.vue&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">    <span class="attr">history</span>: <span class="title function_">createWebHistory</span>(),</span><br><span class="line">    <span class="attr">routes</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">path</span>: <span class="string">&#x27;/home&#x27;</span>,</span><br><span class="line">            <span class="attr">component</span>: <span class="title class_">Home</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">path</span>: <span class="string">&#x27;/news&#x27;</span>,</span><br><span class="line">            <span class="attr">component</span>: <span class="title class_">News</span>,</span><br><span class="line">            <span class="attr">children</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">path</span>: <span class="string">&#x27;details&#x27;</span>,</span><br><span class="line">                    <span class="attr">component</span>: <span class="title class_">NewsDetails</span>,</span><br><span class="line">                &#125;,</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">path</span>: <span class="string">&#x27;/about&#x27;</span>,</span><br><span class="line">            <span class="attr">component</span>: <span class="title class_">About</span>,</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 重定向</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">path</span>: <span class="string">&#x27;/:pathMatch(.*)*&#x27;</span>,</span><br><span class="line">            <span class="attr">redirect</span>: <span class="function"><span class="params">to</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> &#123; <span class="attr">path</span>: <span class="string">&#x27;/home&#x27;</span> &#125;;</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="query传参"><a href="#query传参" class="headerlink" title="query传参"></a>query传参</h2><p>当我点击某个按钮，让它跳转到新闻详情页面时：&#x2F;news&#x2F;details?id&#x3D;${item.id}&amp;title&#x3D;${item.title}</p>
+<p>如何接收传的值呢？</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    新闻详情</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123; route.query.id &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123; route.query.title &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">lang</span>=<span class="string">&quot;ts&quot;</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="keyword">import</span> &#123;useRoute&#125; <span class="keyword">from</span> <span class="string">&quot;vue-router&quot;</span>;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="keyword">const</span> route = <span class="title function_">useRoute</span>();</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="params传参"><a href="#params传参" class="headerlink" title="params传参"></a>params传参</h2><p>也就是需要这样传参：&#x2F;news&#x2F;details&#x2F;${item.id}&#x2F;${item.title}</p>
+<p>此时要怎样接收参数呢？</p>
+<p>改变路由结构：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;/news&#x27;</span>,</span><br><span class="line">        <span class="attr">component</span>: <span class="title class_">News</span>,</span><br><span class="line">            <span class="attr">children</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">path</span>: <span class="string">&#x27;details/:id/:title&#x27;</span>,</span><br><span class="line">                    <span class="attr">component</span>: <span class="title class_">NewsDetails</span>,</span><br><span class="line">                &#125;,</span><br><span class="line">            ],</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>接收：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    新闻详情</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123; route.params.id &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123; route.params.title &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">lang</span>=<span class="string">&quot;ts&quot;</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="keyword">import</span> &#123;useRoute&#125; <span class="keyword">from</span> <span class="string">&quot;vue-router&quot;</span>;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="keyword">const</span> route = <span class="title function_">useRoute</span>();</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="路由props配置"><a href="#路由props配置" class="headerlink" title="路由props配置"></a>路由props配置</h2><p>之前所说的query传参和params传参，在接收时感觉比较繁琐，接下来看看路由props配置，告别繁琐</p>
+<p>首先改变路由：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;/news&#x27;</span>,</span><br><span class="line">        <span class="attr">component</span>: <span class="title class_">News</span>,</span><br><span class="line">            <span class="attr">children</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">path</span>: <span class="string">&#x27;details&#x27;</span>,</span><br><span class="line">                    <span class="attr">component</span>: <span class="title class_">NewsDetails</span>,</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 第一种params写法</span></span><br><span class="line">                    <span class="comment">// props: true,</span></span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 第二种query写法</span></span><br><span class="line">                    <span class="title function_">props</span>(<span class="params">route</span>)&#123;</span><br><span class="line">                        <span class="keyword">return</span> route.<span class="property">query</span>;</span><br><span class="line">                    &#125;,</span><br><span class="line">                &#125;,</span><br><span class="line">            ],</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>接收：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    新闻详情</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123; id &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123; title &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">lang</span>=<span class="string">&quot;ts&quot;</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="title function_">defineProps</span>([<span class="string">&#x27;id&#x27;</span>, <span class="string">&#x27;title&#x27;</span>])</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2024/04/05/57/">vue3基础知识2</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2024/03/31/55/">md文件的解析、渲染与目录文件读取</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">小哲</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4">Stellar 1.26.4</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg t="1705412886951" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8331" width="200" height="200"><path d="M638.72 970.666667h-256c-118.186667 0-198.272-25.002667-251.946667-78.72S52.053333 758.186667 52.053333 640V384c0-118.186667 25.002667-198.272 78.72-251.946667S264.533333 53.333333 382.72 53.333333h256c118.186667 0 198.272 25.002667 251.946667 78.72S969.386667 265.813333 969.386667 384v256c0 118.186667-25.002667 198.272-78.72 251.946667S756.906667 970.666667 638.72 970.666667z m-256-853.333334c-100.096 0-165.802667 19.2-206.72 59.946667S116.053333 283.904 116.053333 384v256c0 100.096 19.072 165.802667 59.946667 206.72S282.624 906.666667 382.72 906.666667h256c100.096 0 165.802667-19.072 206.72-59.946667S905.386667 740.096 905.386667 640V384c0-100.096-19.072-165.802667-59.946667-206.72S738.816 117.333333 638.72 117.333333z" p-id="8332"></path><path d="M638.72 970.666667a32 32 0 0 1-32-32V85.333333a32 32 0 0 1 32-32 32 32 0 0 1 32 32v853.333334a32 32 0 0 1-32 32zM340.053333 653.226667a31.914667 31.914667 0 0 1-22.613333-9.386667 32 32 0 0 1 0-45.269333L404.053333 512 317.44 425.386667a32 32 0 0 1 0-45.226667 32 32 0 0 1 45.226667 0l109.226666 109.226667a32 32 0 0 1 0 45.269333L362.666667 643.84a31.914667 31.914667 0 0 1-22.613334 9.386667z" p-id="8333"></path></svg>
+  </button>
+</div>
+<div class="main-mask" onclick="sidebar.toggle()"></div></div></div><div class="scripts">
+<script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.26.4';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js","memos":"/js/plugins/memos.js","marked":"/js/plugins/marked.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js","transition":"fade"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@10.3/swiper-bundle.min.css","js":"https://unpkg.com/swiper@10.3/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.bootcdn.net/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js","distance":"16px","duration":800,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","flying_pages":"https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js","css":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css","selector":null});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied","toast":"复制成功"});
+  }
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.26.4" async></script>
+
+<!-- optional -->
+
+
+
+
+
+
+<!-- inject -->
+
+</div></body></html>
