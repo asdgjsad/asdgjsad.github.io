@@ -4379,7 +4379,7 @@ details.toc[open] >div.body section .header+.doc_tree {
 }
 .l_left {
   background-size: cover;
-  background-image: url("https://xiao-zhe-is-not-lazy.gitee.io/lazychild-img/sidebar.png");
+  background-image: url("https://pic.imgdb.cn/item/665efe6d5e6d1bfa056a02c2.jpg");
 }
 .l_left .sidebar-container {
   height: 100%;
@@ -5873,24 +5873,13 @@ img[data-fancybox] {
   margin-right: 1rem;
   border-radius: 8px;
 }
-@font-face {
-  font-family: maobi;
-  src: url("https://www.lazychild.fun/font/rou.woff2");
-}
-@font-face {
-  font-family: xiansu;
-  src: url("https://www.lazychild.fun/font/xiansu.ttf");
-}
-body {
-  font-family: maobi;
-}
-.main {
-  font-family: xiansu;
-}
 .nav-item svg.icon {
   width: 25px;
 }
 .nav-area .menu .nav-item img,
 .nav-area .menu .nav-item svg {
   filter: none !important;
+}
+.l_left .sidebar-container {
+  backdrop-filter: none !important;
 }

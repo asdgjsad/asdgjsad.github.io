@@ -1,0 +1,343 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4" theme-name="Stellar" theme-version="1.26.4">
+  
+  <meta name="generator" content="Hexo 7.1.1">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>vue3基础知识3 - 小哲的博客</title>
+
+  
+    <meta name="description" content="slot插槽1. 基本插槽组件： 123456&lt;template&gt;    &lt;div&gt;        &lt;h2&gt;&#123;&#123; title &#125;&#125;&lt;&#x2F;h2&gt;        &lt;slot&gt;&lt;&#x2F;slot&gt;    &lt;&#x2F;div&gt;&lt;&#x2F;template&gt;  使用者： 123456789&lt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue3基础知识3">
+<meta property="og:url" content="https://asdgjsad.github.io/2024/03/02/58/index.html">
+<meta property="og:site_name" content="小哲的博客">
+<meta property="og:description" content="slot插槽1. 基本插槽组件： 123456&lt;template&gt;    &lt;div&gt;        &lt;h2&gt;&#123;&#123; title &#125;&#125;&lt;&#x2F;h2&gt;        &lt;slot&gt;&lt;&#x2F;slot&gt;    &lt;&#x2F;div&gt;&lt;&#x2F;template&gt;  使用者： 123456789&lt;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-04T11:49:10.015Z">
+<meta property="article:author" content="小哲">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta name="keywords" content="vue">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.26.4">
+
+  
+
+  
+
+  
+  
+</head>
+<body>
+
+<div class="l_body content tech" id="start" layout="post" ><aside class="l_left"><div class="sidebar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://pic.imgdb.cn/item/665f06ac5e6d1bfa0573f8c5.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">程序猿小哲</div><div class="sub normal cap">路飞</div><div class="sub hover cap" style="opacity:0"> 索隆</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" class="icon search-icon" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item" title="小哲的导航网站" target="_blank" rel="noopener" href="https://www.a-aa.fun/" style="color:#1BCDFC"><svg t="1706977924264" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13523" width="200" height="200"><path d="M871.706 604.383a28.798 28.798 0 0 0-0.424-2.848c-10.778-53.757-30.987-96.52-60.068-127.102-32.134-33.794-75.04-51.656-124.078-51.656h-81.33V275.923c0-32.759-7.763-61.089-22.449-81.929-18.111-25.701-45.438-39.286-79.025-39.286-32.289 0-59.422 12.159-80.643 36.14-15.932 18.003-28.464 42.428-39.44 76.865-0.122 0.384-0.237 0.77-0.342 1.158-0.104 0.378-10.524 38.298-26.585 77.728-26.383 64.768-43.714 75-46.197 76.177h-42.242c-2.111 0-4.164 0.241-6.146 0.671a28.941 28.941 0 0 0-6.146-0.671 28.726 28.726 0 0 0-16.068 4.887 114.914 114.914 0 0 0-27.945-3.444c-63.359 0-114.721 51.362-114.721 114.721v304.481c0 63.359 51.363 114.721 114.721 114.721 12.383 0 24.297-1.986 35.47-5.616 2.7 0.835 5.568 1.287 8.542 1.287 2.236 0 4.404-0.279 6.494-0.76 2.09 0.481 4.257 0.76 6.494 0.76h433.431c62.209 0 125.171-30.111 160.402-76.711 25.787-34.109 34.238-74.412 23.931-113.787l-15.636-158.932z m-54.338 237.91c-23.949 31.676-70.974 53.8-114.359 53.8H314.484c8.172-15.777 12.816-33.677 12.816-52.671V538.941c0-21.349-5.851-41.324-16.008-58.443h0.655c35.22 0 65.717-33.439 95.976-105.232 17.999-42.705 29.879-84.74 31.493-90.56 19.211-59.972 39.851-72.277 64.916-72.277 29.032 0 43.753 21.362 43.753 63.494v175.715c0 15.94 12.922 28.861 28.861 28.861h110.191c82.849 0 114.952 70.898 127.27 131.001l15.73 159.878a28.91 28.91 0 0 0 0.954 5.042c6.525 23.035 1.908 45.197-13.723 65.873zM931.512 159.915a14.43 14.43 0 0 0-11.649-9.821l-74.355-10.804-33.253-67.377a14.431 14.431 0 0 0-25.88 0l-33.253 67.377-74.355 10.804a14.43 14.43 0 0 0-7.997 24.614l53.804 52.446-12.701 74.055a14.429 14.429 0 0 0 20.937 15.212l66.505-34.964 66.505 34.964a14.414 14.414 0 0 0 6.714 1.657 14.43 14.43 0 0 0 14.224-16.87l-12.701-74.055 53.804-52.446a14.43 14.43 0 0 0 3.651-14.792z" fill="#E75934" p-id="13524"></path></svg></a><a class="nav-item" title="动态" href="/dynamic/" style="color:#3DC550"><svg t="1706977986934" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15519" width="200" height="200"><path d="M689.2 339.88c39.864 16.296 164.832 48.136 193.768 31.792 33.248-19.104-61.584-83.624-64.568-112.592-0.76-17.512 8.656-75.344-9.2-83.848-26.744-13.272-69.256 6.168-94.968 20.696-42.888 24.552-69.976-53.44-109.08-24.504-20.768 16.944 50.152 154.656 84.048 168.456z" fill="#FCE000" p-id="15520"></path><path d="M339.296 328.48C376.8 287.456 462.352 57.768 513.912 56.592c49.224-1.168 121.88 194.536 154.696 261.336 69.144 75 319.928 28.128 321.104 107.816 1.168 60.936-189.848 169.928-209.776 219.144-8.2 21.096 0 43.36 3.512 65.624 7.032 41.016 64.456 230.864 12.888 251.96-80.864 32.816-194.536-94.928-283.6-113.672-92.584-18.752-226.176 165.24-304.696 119.536-65.624-38.672 70.312-260.168 26.952-331.648-32.816-52.736-219.144-152.352-199.224-220.32C60.384 328.48 293.592 377.696 339.296 328.48z" fill="#5E5E5E" p-id="15521"></path><path d="M358.4 348.16c32.768-35.84 107.52-236.544 152.576-237.568 43.008-1.024 106.496 169.984 135.168 228.352 60.416 65.536 279.552 24.576 280.576 94.208 1.024 53.248-165.888 148.48-183.296 191.488-7.168 18.432 0 37.888 3.072 57.344 6.144 35.84 56.32 201.728 11.264 220.16-70.656 28.672-169.984-82.944-247.808-99.328-80.896-16.384-197.632 144.384-266.24 104.448-57.344-33.792 61.44-227.328 23.552-289.792-28.672-46.08-191.488-133.12-174.08-192.512 21.504-76.8 225.28-33.792 265.216-76.8z" fill="#FCE000" p-id="15522"></path><path d="M470.352 465.864c12.368-13.528 40.576-89.272 57.584-89.656 16.232-0.384 40.192 64.152 51.008 86.176 22.8 24.736 105.504 9.272 105.888 35.552 0.384 20.096-62.608 56.032-69.176 72.264-2.704 6.96 0 14.296 1.16 21.64 2.32 13.528 21.256 76.128 4.248 83.088-26.664 10.824-64.152-31.304-93.52-37.488-30.528-6.184-74.584 54.488-100.48 39.416-21.64-12.752 23.184-85.792 8.888-109.368-10.824-17.392-72.264-50.24-65.696-72.656 8.12-28.968 85.024-12.736 100.096-28.968z" fill="#606060" p-id="15523"></path></svg></a><a class="nav-item" title="关于站长" href="/about/" style="color:#3DC550"><svg t="1706978133829" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17375" width="200" height="200"><path d="M576.8704 555.6736m-361.6768 0a361.6768 361.6768 0 1 0 723.3536 0 361.6768 361.6768 0 1 0-723.3536 0Z" fill="#56E5BE" p-id="17376"></path><path d="M613.2224 592.0256m-325.3248 0a325.3248 325.3248 0 1 0 650.6496 0 325.3248 325.3248 0 1 0-650.6496 0Z" fill="#50DDB8" p-id="17377"></path><path d="M650.3936 618.5472m-282.88 0a282.88 282.88 0 1 0 565.76 0 282.88 282.88 0 1 0-565.76 0Z" fill="#42D3AD" p-id="17378"></path><path d="M510.976 921.9072c-231.3728 0-419.584-188.2112-419.584-419.584 0-231.3728 188.2112-419.584 419.584-419.584s419.584 188.2112 419.584 419.584c0.0512 231.3728-188.2112 419.584-419.584 419.584z m0-777.728c-197.4784 0-358.144 160.6656-358.144 358.144s160.6656 358.144 358.144 358.144 358.144-160.6656 358.144-358.144-160.6144-358.144-358.144-358.144z" fill="#2E3138" p-id="17379"></path><path d="M394.1376 575.0272c-16.9472 0-30.72-13.7728-30.72-30.72V460.288c0-16.9472 13.7728-30.72 30.72-30.72s30.72 13.7728 30.72 30.72v84.0192c0 16.9984-13.7728 30.72-30.72 30.72zM640.6656 583.424c-6.5536 0-13.2096-2.0992-18.7904-6.4512l-65.8944-51.0464a30.55616 30.55616 0 0 1-11.8784-24.32c0-9.5232 4.4032-18.4832 11.9296-24.2688l64.256-49.7152a30.6944 30.6944 0 0 1 43.1104 5.5296 30.6944 30.6944 0 0 1-5.5296 43.1104l-32.8704 25.3952 34.56 26.7776c13.4144 10.3936 15.872 29.696 5.4784 43.1104a31.0016 31.0016 0 0 1-24.3712 11.8784z" fill="#2E3138" p-id="17380"></path></svg></a><a class="nav-item" title="官方文档" target="_blank" rel="noopener" href="https://xaoxuu.com/wiki/stellar/#start" style="color:#3DC550"><svg t="1706978948097" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="20251" width="200" height="200"><path d="M770 512.62q0 49.77-4 99.46a167 167 0 0 1-153.15 153.19q-49.51 4-99.17 4-49.92 0-99.76-4a167 167 0 0 1-153.19-153.19q-4-49.65-4-99.46t4-99.47A167 167 0 0 1 413.92 260q49.65-4 99.46-4h73.44a96.88 96.88 0 0 1 66 26l86.34 80.45A96.85 96.85 0 0 1 770 433.28z" fill="#CAE0FF" p-id="20252"></path><path d="M511.56 888c-45.58 0-91.72-1.84-137.15-5.47a254.11 254.11 0 0 1-233.08-233.06c-3.63-45.43-5.47-91.58-5.47-137.15s1.84-91.72 5.47-137.15a254.13 254.13 0 0 1 233.08-233.09c45.43-3.63 91.58-5.47 137.15-5.47h99.64a158.42 158.42 0 0 1 108.32 42.64l117.16 109.16a159.4 159.4 0 0 1 50.58 116.26v107.65c0 45.57-1.84 91.72-5.47 137.15a254.11 254.11 0 0 1-233.08 233.08C603.42 886.17 557.41 888 512 888z m0-696.41c-44.12 0-88.79 1.79-132.77 5.3a199.12 199.12 0 0 0-182.64 182.66c-3.51 44-5.29 88.65-5.29 132.77s1.78 88.79 5.29 132.77a199.12 199.12 0 0 0 182.64 182.64c44 3.51 88.65 5.29 132.76 5.29h0.45c44 0 88.53-1.79 132.37-5.29A199.12 199.12 0 0 0 827 645.09c3.51-44 5.29-88.65 5.29-132.77V404.67a104.23 104.23 0 0 0-33.07-76L682 219.49a103.62 103.62 0 0 0-70.83-27.88z" fill="#1A5F8E" p-id="20253"></path><path d="M692.8 683H328.85a27.5 27.5 0 0 1 0-55H692.8a27.5 27.5 0 0 1 0 55zM692.8 540.93H328.85a27.5 27.5 0 0 1 0-55H692.8a27.5 27.5 0 1 1 0 55zM590 398.86H328.71a27.5 27.5 0 1 1 0-55H590a27.5 27.5 0 0 1 0 55z" fill="#1A5F8E" p-id="20254"></path></svg></a></nav>
+</div>
+<div class="widgets">
+
+<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#slot%E6%8F%92%E6%A7%BD"><span class="toc-text">slot插槽</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%8F%92%E6%A7%BD"><span class="toc-text">1. 基本插槽</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%85%B7%E5%90%8D%E6%8F%92%E6%A7%BD"><span class="toc-text">2. 具名插槽</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%8F%92%E6%A7%BD"><span class="toc-text">3. 作用域插槽</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4"><span class="toc-text">自定义指令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%B1%80%E9%83%A8%E6%B3%A8%E5%86%8C"><span class="toc-text">1. 局部注册</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8C"><span class="toc-text">2. 全局注册</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#shallowRef%E4%B8%8EshallowReactive"><span class="toc-text">shallowRef与shallowReactive</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#readonly-%E4%B8%8EshallowReadonly"><span class="toc-text">readonly()与shallowReadonly()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#toRaw"><span class="toc-text">toRaw()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#markRaw"><span class="toc-text">markRaw()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#customRef"><span class="toc-text">customRef()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Teleport"><span class="toc-text">Teleport</span></a></li></ol></div></div></widget>
+
+
+
+
+
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2023/04/10/7/"><span class="title">利用css画图形</span></a><a class="item title" href="/2023/04/11/8/"><span class="title">vue-cli创建vue项目</span></a><a class="item title" href="/2023/04/15/9/"><span class="title">创建express项目</span></a><a class="item title" href="/2024/05/29/65/"><span class="title">js中判断数据类型的方法</span></a><a class="item title" href="/2024/06/03/66/"><span class="title">Centos7安装Docker</span></a><a class="item title" href="/2024/06/04/67/"><span class="title">Docker常用命令</span></a><a class="item title" href="/2024/05/22/63/"><span class="title">为git配置代理(解决开启科学上网后，push报错问题)</span></a><a class="item title" href="/2024/05/20/62/"><span class="title">vue3扩展学习</span></a><a class="item title" href="/2024/04/02/61/"><span class="title">webpack基础知识</span></a><a class="item title" href="/2024/05/28/64/"><span class="title">js中的微任务与宏任务</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    
+<div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a></div>
+<div class="flex-row" id="post-meta"><span class="text created"><time datetime="2024-03-01T16:00:00.000Z">2024-03-02</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-06-04T11:49:10.015Z">2024-06-04</time></span></div></div>
+</div>
+
+    
+    <div class="bottom">
+      <div class="text-area">
+        <h1 class="text title"><span>vue3基础知识3</span></h1>
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="slot插槽"><a href="#slot插槽" class="headerlink" title="slot插槽"></a>slot插槽</h2><h4 id="1-基本插槽"><a href="#1-基本插槽" class="headerlink" title="1. 基本插槽"></a>1. 基本插槽</h4><p>组件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h2&gt;&#123;&#123; title &#125;&#125;&lt;/h2&gt;</span><br><span class="line">        &lt;slot&gt;&lt;/slot&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用者：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Compo1 title=&quot;游戏列表&quot;&gt;</span><br><span class="line">        &lt;ul&gt;</span><br><span class="line">           &lt;li v-for=&quot;item in games&quot; :key=&quot;item.id&quot;&gt;&#123;&#123; item.name &#125;&#125;&lt;/li&gt;</span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line">    &lt;/Compo1&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-具名插槽"><a href="#2-具名插槽" class="headerlink" title="2. 具名插槽"></a>2. 具名插槽</h4><p>组件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h2&gt;&#123;&#123; title &#125;&#125;&lt;/h2&gt;</span><br><span class="line">        &lt;slot name=&quot;content&quot;&gt;&lt;/slot&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用者：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Compo1 title=&quot;游戏列表&quot; v-slot:content&gt;</span><br><span class="line">      &lt;ul&gt;</span><br><span class="line">        &lt;li v-for=&quot;item in games&quot; :key=&quot;item.id&quot;&gt;&#123;&#123; item.name &#125;&#125;&lt;/li&gt;</span><br><span class="line">      &lt;/ul&gt;</span><br><span class="line">    &lt;/Compo1&gt;</span><br><span class="line">    &lt;Compo1 title=&quot;美食中国&quot; #content&gt;</span><br><span class="line">      &lt;img :src=&quot;imgUrl&quot; alt=&quot;&quot;&gt;</span><br><span class="line">    &lt;/Compo1&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-作用域插槽"><a href="#3-作用域插槽" class="headerlink" title="3. 作用域插槽"></a>3. 作用域插槽</h4><p>组件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h2&gt;&#123;&#123; title &#125;&#125;&lt;/h2&gt;</span><br><span class="line">        &lt;slot name=&quot;content&quot; :games=&quot;games&quot; :imgUrl=&quot;imgUrl&quot;&gt;&lt;/slot&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用者：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Compo1 title=&quot;游戏列表&quot; v-slot:content = &#x27;params&#x27;&gt;</span><br><span class="line">      &lt;ul&gt;</span><br><span class="line">        &lt;li v-for=&quot;item in params.games&quot; :key=&quot;item.id&quot;&gt;&#123;&#123; item.name &#125;&#125;&lt;/li&gt;</span><br><span class="line">      &lt;/ul&gt;</span><br><span class="line">    &lt;/Compo1&gt;</span><br><span class="line">    &lt;Compo1 title=&quot;美食中国&quot; #content = &#x27;params&#x27;&gt;</span><br><span class="line">      &lt;img :src=&quot;params.imgUrl&quot; alt=&quot;&quot;&gt;</span><br><span class="line">    &lt;/Compo1&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h2><h4 id="1-局部注册"><a href="#1-局部注册" class="headerlink" title="1. 局部注册"></a>1. 局部注册</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">      &lt;input v-focus type=&quot;text&quot;&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">const vFocus = &#123;</span><br><span class="line">  mounted: (el) =&gt; &#123;</span><br><span class="line">    el.style.height = &#x27;25px&#x27;</span><br><span class="line">    el.focus()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-全局注册"><a href="#2-全局注册" class="headerlink" title="2. 全局注册"></a>2. 全局注册</h4><p>可以自定义一个文件夹directives，将所有指令的逻辑都放在这里</p>
+<p>比如我新建一个vFocus.ts文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> vFocus = &#123;</span><br><span class="line">    <span class="attr">mounted</span>: <span class="function">(<span class="params">el</span>) =&gt;</span> &#123;</span><br><span class="line">        el.<span class="property">style</span>.<span class="property">height</span> = <span class="string">&#x27;25px&#x27;</span></span><br><span class="line">        el.<span class="property">style</span>.<span class="property">border</span> = <span class="string">&#x27;1px dashed black&#x27;</span></span><br><span class="line">        el.<span class="title function_">focus</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> vFocus</span><br></pre></td></tr></table></figure>
+
+<p>main.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入自定义指令</span></span><br><span class="line"><span class="keyword">import</span> vFocus <span class="keyword">from</span> <span class="string">&#x27;@/directives/vFocus&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(<span class="title class_">App</span>);</span><br><span class="line"><span class="comment">//注册自定义指令 </span></span><br><span class="line">app.<span class="title function_">directive</span>(<span class="string">&#x27;focus&#x27;</span>, vFocus)</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="shallowRef与shallowReactive"><a href="#shallowRef与shallowReactive" class="headerlink" title="shallowRef与shallowReactive"></a>shallowRef与shallowReactive</h2><p>ref()与reactive()的浅层作用形式，也就是说只对浅层的数据具有响应式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> state = <span class="title function_">shallowRef</span>(&#123; <span class="attr">count</span>: <span class="number">1</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 不会触发更改</span></span><br><span class="line">state.<span class="property">value</span>.<span class="property">count</span> = <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 会触发更改</span></span><br><span class="line">state.<span class="property">value</span> = &#123; <span class="attr">count</span>: <span class="number">2</span> &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> state = <span class="title function_">shallowReactive</span>(&#123;</span><br><span class="line">  <span class="attr">foo</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">nested</span>: &#123;</span><br><span class="line">    <span class="attr">bar</span>: <span class="number">2</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更改状态自身的属性是响应式的</span></span><br><span class="line">state.<span class="property">foo</span>++</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...但下层嵌套对象不会被转为响应式</span></span><br><span class="line"><span class="title function_">isReactive</span>(state.<span class="property">nested</span>) <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 不是响应式的</span></span><br><span class="line">state.<span class="property">nested</span>.<span class="property">bar</span>++</span><br></pre></td></tr></table></figure>
+
+<h2 id="readonly-与shallowReadonly"><a href="#readonly-与shallowReadonly" class="headerlink" title="readonly()与shallowReadonly()"></a>readonly()与shallowReadonly()</h2><p>readonly()只读代理是深层的：对任何嵌套属性的访问都将是只读的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> original = <span class="title function_">reactive</span>(&#123; <span class="attr">count</span>: <span class="number">0</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> copy = <span class="title function_">readonly</span>(original)</span><br><span class="line"></span><br><span class="line"><span class="title function_">watchEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 用来做响应性追踪</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(copy.<span class="property">count</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更改源属性会触发其依赖的侦听器</span></span><br><span class="line">original.<span class="property">count</span>++</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更改该只读副本将会失败，并会得到一个警告</span></span><br><span class="line">copy.<span class="property">count</span>++ <span class="comment">// warning!</span></span><br></pre></td></tr></table></figure>
+
+<p>和 <code>readonly()</code> 不同，这里没有深层级的转换：只有根层级的属性变为了只读。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> state = <span class="title function_">shallowReadonly</span>(&#123;</span><br><span class="line">  <span class="attr">foo</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">nested</span>: &#123;</span><br><span class="line">    <span class="attr">bar</span>: <span class="number">2</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更改状态自身的属性会失败</span></span><br><span class="line">state.<span class="property">foo</span>++</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...但可以更改下层嵌套对象</span></span><br><span class="line"><span class="title function_">isReadonly</span>(state.<span class="property">nested</span>) <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这是可以通过的</span></span><br><span class="line">state.<span class="property">nested</span>.<span class="property">bar</span>++</span><br></pre></td></tr></table></figure>
+
+<h2 id="toRaw"><a href="#toRaw" class="headerlink" title="toRaw()"></a>toRaw()</h2><p><code>toRaw()</code> 可以返回由 <a target="_blank" rel="noopener" href="https://cn.vuejs.org/api/reactivity-core.html#reactive"><code>reactive()</code></a>、<a target="_blank" rel="noopener" href="https://cn.vuejs.org/api/reactivity-core.html#readonly"><code>readonly()</code></a>、<a target="_blank" rel="noopener" href="https://cn.vuejs.org/api/reactivity-advanced.html#shallowreactive"><code>shallowReactive()</code></a> 或者 <a target="_blank" rel="noopener" href="https://cn.vuejs.org/api/reactivity-advanced.html#shallowreadonly"><code>shallowReadonly()</code></a> 创建的代理对应的原始对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> foo = &#123;&#125;</span><br><span class="line"><span class="keyword">const</span> reactiveFoo = <span class="title function_">reactive</span>(foo)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">toRaw</span>(reactiveFoo) === foo) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="markRaw"><a href="#markRaw" class="headerlink" title="markRaw()"></a>markRaw()</h2><p>markRaw 将一个对象标记为不可被转为代理。返回该对象本身。(只对reactive生效)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> foo = <span class="title function_">markRaw</span>(&#123;&#125;)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">isReactive</span>(<span class="title function_">reactive</span>(foo))) <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 也适用于嵌套在其他响应性对象</span></span><br><span class="line"><span class="keyword">const</span> bar = <span class="title function_">reactive</span>(&#123; foo &#125;)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">isReactive</span>(bar.<span class="property">foo</span>)) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="customRef"><a href="#customRef" class="headerlink" title="customRef()"></a>customRef()</h2><p>创建一个自定义的 ref，显式声明对其依赖追踪和更新触发的控制方式。</p>
+<p>创建一个hooks：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; customRef &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> (<span class="params">inputInit, delay</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> input = <span class="title function_">customRef</span>(<span class="function">(<span class="params">track, trigger</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> timer</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="title function_">get</span>(<span class="params"></span>) &#123;</span><br><span class="line">                <span class="title function_">track</span>()  <span class="comment">//告诉vue数据inputInit很重要，你要对其进行持续关注，一旦其数据变化就去更新</span></span><br><span class="line">                <span class="keyword">return</span> inputInit</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="title function_">set</span>(<span class="params">value</span>) &#123;</span><br><span class="line">                <span class="built_in">clearTimeout</span>(timer)</span><br><span class="line">                timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                    inputInit = value</span><br><span class="line">                    <span class="title function_">trigger</span>()  <span class="comment">// 通知vue数据变化了</span></span><br><span class="line">                &#125;, delay)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        input</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>使用者：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;input type=&quot;text&quot; v-model=&quot;input&quot;&gt;</span><br><span class="line">  &lt;div&gt;&#123;&#123; input &#125;&#125;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang=&quot;ts&quot; setup&gt;</span><br><span class="line">import useCustomRef from &#x27;./hooks/useCustomRef&#x27;;</span><br><span class="line"></span><br><span class="line">let &#123;input&#125; = useCustomRef(&#x27;666&#x27;, 2000)</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Teleport"><a href="#Teleport" class="headerlink" title="Teleport"></a>Teleport</h2><p><code>&lt;Teleport&gt;</code> 是一个内置组件，它可以将一个组件内部的一部分模板“传送”到该组件的 DOM 结构外层的位置去。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;button @click=&quot;open = true&quot;&gt;Open Modal&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">&lt;Teleport to=&quot;body&quot;&gt;</span><br><span class="line">  &lt;div v-if=&quot;open&quot; class=&quot;modal&quot;&gt;</span><br><span class="line">    &lt;p&gt;Hello from the modal!&lt;/p&gt;</span><br><span class="line">    &lt;button @click=&quot;open = false&quot;&gt;Close&lt;/button&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/Teleport&gt;</span><br></pre></td></tr></table></figure>
+
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2024/03/10/59/">js设计模式</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2024/02/24/57/">vue3基础知识2</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">小哲</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4">Stellar 1.26.4</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg t="1705412886951" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8331" width="200" height="200"><path d="M638.72 970.666667h-256c-118.186667 0-198.272-25.002667-251.946667-78.72S52.053333 758.186667 52.053333 640V384c0-118.186667 25.002667-198.272 78.72-251.946667S264.533333 53.333333 382.72 53.333333h256c118.186667 0 198.272 25.002667 251.946667 78.72S969.386667 265.813333 969.386667 384v256c0 118.186667-25.002667 198.272-78.72 251.946667S756.906667 970.666667 638.72 970.666667z m-256-853.333334c-100.096 0-165.802667 19.2-206.72 59.946667S116.053333 283.904 116.053333 384v256c0 100.096 19.072 165.802667 59.946667 206.72S282.624 906.666667 382.72 906.666667h256c100.096 0 165.802667-19.072 206.72-59.946667S905.386667 740.096 905.386667 640V384c0-100.096-19.072-165.802667-59.946667-206.72S738.816 117.333333 638.72 117.333333z" p-id="8332"></path><path d="M638.72 970.666667a32 32 0 0 1-32-32V85.333333a32 32 0 0 1 32-32 32 32 0 0 1 32 32v853.333334a32 32 0 0 1-32 32zM340.053333 653.226667a31.914667 31.914667 0 0 1-22.613333-9.386667 32 32 0 0 1 0-45.269333L404.053333 512 317.44 425.386667a32 32 0 0 1 0-45.226667 32 32 0 0 1 45.226667 0l109.226666 109.226667a32 32 0 0 1 0 45.269333L362.666667 643.84a31.914667 31.914667 0 0 1-22.613334 9.386667z" p-id="8333"></path></svg>
+  </button>
+</div>
+<div class="main-mask" onclick="sidebar.toggle()"></div></div></div><div class="scripts">
+<script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.26.4';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.4';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js","memos":"/js/plugins/memos.js","marked":"/js/plugins/marked.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js","transition":"fade"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@10.3/swiper-bundle.min.css","js":"https://unpkg.com/swiper@10.3/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.bootcdn.net/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js","distance":"16px","duration":800,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","flying_pages":"https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js","css":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css","selector":null});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied","toast":"复制成功"});
+  }
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.26.4" async></script>
+
+<!-- optional -->
+
+
+
+
+
+
+<!-- inject -->
+
+</div></body></html>
