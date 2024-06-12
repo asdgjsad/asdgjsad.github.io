@@ -16,25 +16,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
   
-  <title>js基础篇4 - 小哲的博客</title>
+  <title>Dockerfile介绍 - 小哲的博客</title>
 
   
-    <meta name="description" content="proxy123456789101112131415161718192021222324 let obj &#x3D; &#123;     name: &#x27;tom&#x27;, &#125;     &#x2F;&#x2F; 使用 proxy 监听 obj 的变化 proxy &#x3D; new Proxy(obj, &#123;     get(target, key) &#123;         console.log">
+    <meta name="description" content="介绍类似一个构建镜像的清单，docker可以根据这个清单进行镜像的自动化构建 保留字1. FROM指定基础镜像，并且必须是第一条指令 12FROM &lt;image&gt;FROM &lt;image&gt;:&lt;tag&gt;  2. MAINTAINER指定作者 1MAINTAINER &lt;name&gt;  3. RUN在构建镜像时需要运行的命令 例如： 12RUN yum -y">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js基础篇4">
-<meta property="og:url" content="https://asdgjsad.github.io/2024/02/01/54/index.html">
+<meta property="og:title" content="Dockerfile介绍">
+<meta property="og:url" content="https://asdgjsad.github.io/2024/06/12/70/index.html">
 <meta property="og:site_name" content="小哲的博客">
-<meta property="og:description" content="proxy123456789101112131415161718192021222324 let obj &#x3D; &#123;     name: &#x27;tom&#x27;, &#125;     &#x2F;&#x2F; 使用 proxy 监听 obj 的变化 proxy &#x3D; new Proxy(obj, &#123;     get(target, key) &#123;         console.log">
+<meta property="og:description" content="介绍类似一个构建镜像的清单，docker可以根据这个清单进行镜像的自动化构建 保留字1. FROM指定基础镜像，并且必须是第一条指令 12FROM &lt;image&gt;FROM &lt;image&gt;:&lt;tag&gt;  2. MAINTAINER指定作者 1MAINTAINER &lt;name&gt;  3. RUN在构建镜像时需要运行的命令 例如： 12RUN yum -y">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-01-31T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-06-04T11:49:10.014Z">
+<meta property="article:published_time" content="2024-06-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-12T14:24:14.913Z">
 <meta property="article:author" content="小哲">
-<meta property="article:tag" content="js">
+<meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary">
   
   
   
-  <meta name="keywords" content="js">
+  <meta name="keywords" content="Docker">
 
   <!-- feed -->
   
@@ -63,7 +63,7 @@
 </div>
 <div class="widgets">
 
-<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#proxy"><span class="toc-text">proxy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reflect%E9%85%8D%E5%90%88proxy"><span class="toc-text">Reflect配合proxy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#promise%E7%9B%B8%E5%85%B3api"><span class="toc-text">promise相关api</span></a></li></ol></div></div></widget>
+<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%9D%E7%95%99%E5%AD%97"><span class="toc-text">保留字</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-FROM"><span class="toc-text">1. FROM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-MAINTAINER"><span class="toc-text">2. MAINTAINER</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-RUN"><span class="toc-text">3. RUN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-CMD"><span class="toc-text">4. CMD</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-ENTRYPOINT"><span class="toc-text">5. ENTRYPOINT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-ENV"><span class="toc-text">6. ENV</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-EXPOSE"><span class="toc-text">7. EXPOSE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-COPY"><span class="toc-text">8. COPY</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-ADD"><span class="toc-text">9. ADD</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-WORKDIR"><span class="toc-text">10. WORKDIR</span></a></li></ol></li></ol></li></ol></div></div></widget>
 
 
 
@@ -71,7 +71,7 @@
 
 
 
-<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2024/06/12/70/"><span class="title">Dockerfile介绍</span></a><a class="item title" href="/2024/06/12/69/"><span class="title">Docker安装mysql</span></a><a class="item title" href="/2024/05/20/68/"><span class="title">react易忘知识点</span></a><a class="item title" href="/2024/06/04/67/"><span class="title">Docker常用命令</span></a><a class="item title" href="/2023/04/10/7/"><span class="title">利用css画图形</span></a><a class="item title" href="/2023/04/11/8/"><span class="title">vue-cli创建vue项目</span></a><a class="item title" href="/2023/04/15/9/"><span class="title">创建express项目</span></a><a class="item title" href="/2024/05/29/65/"><span class="title">js中判断数据类型的方法</span></a><a class="item title" href="/2024/06/03/66/"><span class="title">Centos7安装Docker</span></a><a class="item title" href="/2024/04/02/61/"><span class="title">webpack基础知识</span></a></div></widget>
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title active" href="/2024/06/12/70/"><span class="title">Dockerfile介绍</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="item title" href="/2024/06/12/69/"><span class="title">Docker安装mysql</span></a><a class="item title" href="/2024/05/20/68/"><span class="title">react易忘知识点</span></a><a class="item title" href="/2024/06/04/67/"><span class="title">Docker常用命令</span></a><a class="item title" href="/2023/04/10/7/"><span class="title">利用css画图形</span></a><a class="item title" href="/2023/04/11/8/"><span class="title">vue-cli创建vue项目</span></a><a class="item title" href="/2023/04/15/9/"><span class="title">创建express项目</span></a><a class="item title" href="/2024/05/29/65/"><span class="title">js中判断数据类型的方法</span></a><a class="item title" href="/2024/06/03/66/"><span class="title">Centos7安装Docker</span></a><a class="item title" href="/2024/04/02/61/"><span class="title">webpack基础知识</span></a></div></widget>
 </div>
 
 </div></aside><div class="l_main" id="main">
@@ -84,58 +84,56 @@
   <div class="content">
     
 <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
-<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%89%8D%E7%AB%AF3%E5%A4%A7%E4%BB%B6/">前端3大件</a></div>
-<div class="flex-row" id="post-meta"><span class="text created"><time datetime="2024-01-31T16:00:00.000Z">2024-02-01</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-06-04T11:49:10.014Z">2024-06-04</time></span></div></div>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%85%A8%E6%A0%88%E5%B7%A5%E7%A8%8B%E5%B8%88/">全栈工程师</a></div>
+<div class="flex-row" id="post-meta"><span class="text created"><time datetime="2024-06-11T16:00:00.000Z">2024-06-12</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-06-12T14:24:14.913Z">2024-06-12</time></span></div></div>
 </div>
 
     
     <div class="bottom">
       <div class="text-area">
-        <h1 class="text title"><span>js基础篇4</span></h1>
+        <h1 class="text title"><span>Dockerfile介绍</span></h1>
       </div>
     </div>
     
   </div>
-  </div><article class="md-text content"><h2 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">let</span> obj = &#123;</span><br><span class="line">     <span class="attr">name</span>: <span class="string">&#x27;tom&#x27;</span>,</span><br><span class="line"> &#125;</span><br><span class="line">    </span><br><span class="line"> <span class="comment">// 使用 proxy 监听 obj 的变化</span></span><br><span class="line"> proxy = <span class="keyword">new</span> <span class="title class_">Proxy</span>(obj, &#123;</span><br><span class="line">     <span class="title function_">get</span>(<span class="params">target, key</span>) &#123;</span><br><span class="line">         <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`get <span class="subst">$&#123;key&#125;</span>`</span>)</span><br><span class="line">         <span class="keyword">if</span> (key === <span class="string">&#x27;name&#x27;</span>) &#123;</span><br><span class="line">             a.<span class="property">innerHTML</span> = target[key]</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">return</span> target[key]</span><br><span class="line">     &#125;,</span><br><span class="line">     <span class="title function_">set</span>(<span class="params">target, key, value</span>) &#123;</span><br><span class="line">         <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`set <span class="subst">$&#123;key&#125;</span> = <span class="subst">$&#123;value&#125;</span>`</span>)</span><br><span class="line">         <span class="keyword">if</span> (key === <span class="string">&#x27;name&#x27;</span>) &#123;</span><br><span class="line">             a.<span class="property">innerHTML</span> = value</span><br><span class="line">         &#125;</span><br><span class="line">         target[key] = value</span><br><span class="line">         <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">     &#125;</span><br><span class="line"> &#125;)</span><br><span class="line">proxy.<span class="property">name</span></span><br><span class="line"><span class="comment">// get name</span></span><br></pre></td></tr></table></figure>
+  </div><article class="md-text content"><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>类似一个构建镜像的清单，docker可以根据这个清单进行镜像的自动化构建</p>
+<h2 id="保留字"><a href="#保留字" class="headerlink" title="保留字"></a>保留字</h2><h4 id="1-FROM"><a href="#1-FROM" class="headerlink" title="1. FROM"></a>1. FROM</h4><p>指定基础镜像，并且必须是第一条指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FROM &lt;image&gt;</span><br><span class="line">FROM &lt;image&gt;:&lt;tag&gt;</span><br></pre></td></tr></table></figure>
 
+<h4 id="2-MAINTAINER"><a href="#2-MAINTAINER" class="headerlink" title="2. MAINTAINER"></a>2. MAINTAINER</h4><p>指定作者</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MAINTAINER &lt;name&gt;</span><br></pre></td></tr></table></figure>
 
+<h4 id="3-RUN"><a href="#3-RUN" class="headerlink" title="3. RUN"></a>3. RUN</h4><p>在构建镜像时需要运行的命令</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RUN yum -y install vim</span><br><span class="line">RUN [&quot;./test.php&quot;, &quot;dev&quot;, &quot;offline&quot;]  # 等价于 RUN ./test.php dev offline</span><br></pre></td></tr></table></figure>
 
-<h2 id="Reflect配合proxy"><a href="#Reflect配合proxy" class="headerlink" title="Reflect配合proxy"></a>Reflect配合proxy</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> proxy = <span class="keyword">new</span> <span class="title class_">Proxy</span>(obj, &#123;</span><br><span class="line">    <span class="title function_">get</span>(<span class="params">target, key</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`get <span class="subst">$&#123;<span class="built_in">Reflect</span>.get(target, key)&#125;</span>`</span>)</span><br><span class="line">        <span class="comment">// return Reflect.get(target, key)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="title class_">Reflect</span>.<span class="title function_">get</span>(...<span class="variable language_">arguments</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">set</span>(<span class="params">target, key, value</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`set <span class="subst">$&#123;key&#125;</span> = <span class="subst">$&#123;value&#125;</span>`</span>)</span><br><span class="line">        <span class="title class_">Reflect</span>.<span class="title function_">set</span>(...<span class="variable language_">arguments</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="4-CMD"><a href="#4-CMD" class="headerlink" title="4. CMD"></a>4. CMD</h4><p>容器启动后需要运行的命令</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CMD echo &quot;hello world&quot;</span><br><span class="line">CMD [&quot;catalina.sh&quot;, &quot;run&quot;]</span><br></pre></td></tr></table></figure>
 
+<h4 id="5-ENTRYPOINT"><a href="#5-ENTRYPOINT" class="headerlink" title="5. ENTRYPOINT"></a>5. ENTRYPOINT</h4><p>容器启动后需要运行的命令，类似于CMD，但是不会被docker run后面的命令覆盖，这些命令参数会被当做参数送给ENTRYPOINT指令指定的程序。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FROM nginx</span><br><span class="line"> </span><br><span class="line">ENTRYPOINT [&quot;nginx&quot;, &quot;-c&quot;]  # 定参</span><br><span class="line">CMD [&quot;/etc/nginx/nginx.conf&quot;] # 变参</span><br><span class="line"></span><br><span class="line"># nginx -c /etc/nginx/nginx.conf </span><br></pre></td></tr></table></figure>
 
+<h4 id="6-ENV"><a href="#6-ENV" class="headerlink" title="6. ENV"></a>6. ENV</h4><p>在镜像构建时，创建环境变量</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ENV MY_PATH /usr/mytest</span><br><span class="line"> </span><br><span class="line"># 使用环境变量</span><br><span class="line">WORKDIR $MY_PATH</span><br></pre></td></tr></table></figure>
 
-<h2 id="promise相关api"><a href="#promise相关api" class="headerlink" title="promise相关api"></a>promise相关api</h2><p>一个 Promise 必然处于以下几种状态之一：</p>
-<p>​        1.待定（pending）：初始状态，既没有被兑现，也没有被拒绝。</p>
-<p>​        2.已兑现（fulfilled）：意味着操作成功完成。</p>
-<p>​        3.已拒绝（rejected）：意味着操作失败。 </p>
-<blockquote>
-<p>ajax函数</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">ajax</span>(<span class="params">str, time, isSuccess</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isSuccess)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                <span class="title function_">resolve</span>(str);</span><br><span class="line">            &#125;, time);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                <span class="title function_">reject</span>(str);</span><br><span class="line">            &#125;, time);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="7-EXPOSE"><a href="#7-EXPOSE" class="headerlink" title="7. EXPOSE"></a>7. EXPOSE</h4><p>当前容器对外暴露出的端口</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPOSE 80</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>Promise.all()</p>
-<p>等待所有 Promise, 在任意一个 Promise 被拒绝时拒绝</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="title class_">Promise</span>.<span class="title function_">all</span>([<span class="title function_">ajax</span>(<span class="string">&#x27;1&#x27;</span>,<span class="number">1000</span>, <span class="literal">true</span>), <span class="title function_">ajax</span>(<span class="string">&#x27;2&#x27;</span>,<span class="number">2000</span>, <span class="literal">true</span>)]).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line"> &#125;).<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(err)</span><br><span class="line"> &#125;)</span><br><span class="line"><span class="comment">// [&#x27;1&#x27;, &#x27;2&#x27;]</span></span><br></pre></td></tr></table></figure>
+<h4 id="8-COPY"><a href="#8-COPY" class="headerlink" title="8. COPY"></a>8. COPY</h4><p>复制本地文件或目录到镜像中</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COPY 【源路径】【容器路径】</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>Promise.race()</p>
-<p>看哪一个 Promise 先被执行完，就执行哪一个 Promise</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Promise</span>.<span class="title function_">race</span>([<span class="title function_">ajax</span>(<span class="string">&#x27;1&#x27;</span>,<span class="number">1000</span>, <span class="literal">true</span>), <span class="title function_">ajax</span>(<span class="string">&#x27;2&#x27;</span>,<span class="number">2000</span>, <span class="literal">true</span>)]).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line">&#125;).<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(err)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<h4 id="9-ADD"><a href="#9-ADD" class="headerlink" title="9. ADD"></a>9. ADD</h4><p>将宿主机目录下（或远程文件）的文件拷贝进镜像，且会自动处理URL和解压tar压缩包。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ADD https://example.com/file.tar.gz /tmp/</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>Promise.any()</p>
-<p>当输入的任何 promise 实现时，此返回的 promise 将实现，并具有第一个 fulfillation 值。当所有输入的 promise 都拒绝时（包括传递空可迭代对象时），它会拒绝</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Promise</span>.<span class="title function_">any</span>([<span class="title function_">ajax</span>(<span class="string">&#x27;1&#x27;</span>,<span class="number">1000</span>, <span class="literal">false</span>), <span class="title function_">ajax</span>(<span class="string">&#x27;2&#x27;</span>,<span class="number">2000</span>, <span class="literal">true</span>)]).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line">&#125;).<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(err, <span class="string">&#x27;拒绝&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>Promise.allSettled()</p>
-<p>无论任何 promise 实现，此返回的 promise 都将实现，并具有一个数组，其中包含每个输入 promise 的状态和值。</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Promise</span>.<span class="title function_">allSettled</span>([<span class="title function_">ajax</span>(<span class="string">&#x27;1&#x27;</span>,<span class="number">1000</span>, <span class="literal">false</span>), <span class="title function_">ajax</span>(<span class="string">&#x27;2&#x27;</span>,<span class="number">2000</span>, <span class="literal">false</span>)]).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line">&#125;).<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(err)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[&#123;…&#125;, &#123;…&#125;]</span></span><br><span class="line"><span class="comment">0: &#123;status: &#x27;rejected&#x27;, reason: &#x27;1&#x27;&#125;</span></span><br><span class="line"><span class="comment">1: &#123;status: &#x27;rejected&#x27;, reason: &#x27;2&#x27;&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h4 id="10-WORKDIR"><a href="#10-WORKDIR" class="headerlink" title="10. WORKDIR"></a>10. WORKDIR</h4><p>设置工作目录，后续命令将在该目录下执行</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WORKDIR /app</span><br></pre></td></tr></table></figure>
 
 
 <div class="article-footer fs14">
@@ -146,7 +144,7 @@
     </section>
     </div>
 </article>
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2024/02/10/55/">md文件的解析、渲染与目录文件读取</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2024/01/10/53/">MongoDB的安装与使用</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2024/06/12/69/">Docker安装mysql</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2024/06/04/67/">Docker常用命令</a></div></section></div>
 
 
 
